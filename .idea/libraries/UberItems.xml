@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="UberItems">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../imports/UberItems.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
