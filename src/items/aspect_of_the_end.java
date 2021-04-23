@@ -1,8 +1,6 @@
 package items;
 
-import java.util.List;
-
-import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -13,27 +11,47 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-
 import thirtyvirus.uber.UberItem;
 import thirtyvirus.uber.helpers.UberAbility;
 import thirtyvirus.uber.helpers.UberCraftingRecipe;
 import thirtyvirus.uber.helpers.UberRarity;
 import thirtyvirus.uber.helpers.Utilities;
 
-public class example_uber_item extends UberItem {
+import java.util.List;
 
-    public example_uber_item(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
+public class aspect_of_the_end extends UberItem {
+
+    public aspect_of_the_end(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
         super(material, name, rarity, stackable, oneTimeUse, hasActiveEffect, abilities, craftingRecipe);
     }
-    public void onItemStackCreate(ItemStack item) { Utilities.addEnchantGlint(item); }
+    public void onItemStackCreate(ItemStack item) { }
     public void getSpecificLorePrefix(List<String> lore, ItemStack item) { }
-    public void getSpecificLoreSuffix(List<String> lore, ItemStack item) {
-        lore.add(ChatColor.YELLOW + "This is the template item");
-    }
+    public void getSpecificLoreSuffix(List<String> lore, ItemStack item) { }
 
     public boolean leftClickAirAction(Player player, ItemStack item) { return false; }
-    public boolean leftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { player.sendMessage("this is the template item"); return true; }
-    public boolean rightClickAirAction(Player player, ItemStack item) { return false; }
+    public boolean leftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
+
+    // teleport ability
+    public boolean rightClickAirAction(Player player, ItemStack item) {
+        Location l = player.getLocation().clone();
+        l.add(player.getEyeLocation().getDirection().multiply(8));
+        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1f,1f);
+        player.teleport(l);
+
+        if (Utilities.getIntFromItem(item, "has_teleported") == 0) {
+            // change player speed
+            player.setWalkSpeed(player.getWalkSpeed() + 0.05f);
+            Utilities.storeIntInItem(item, 1, "has_teleported");
+
+            // remove player speed after 3 seconds
+            Utilities.scheduleTask(new Runnable() { public void run() {
+                player.setWalkSpeed(player.getWalkSpeed() - 0.05f);
+                Utilities.storeIntInItem(item, 0, "has_teleported");
+            } }, 60);
+        }
+
+        return true;
+    }
     public boolean rightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
     public boolean shiftLeftClickAirAction(Player player, ItemStack item) { return false; }
     public boolean shiftLeftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
@@ -42,11 +60,6 @@ public class example_uber_item extends UberItem {
     public boolean middleClickAction(Player player, ItemStack item) { return false; }
     public boolean hitEntityAction(Player player, EntityDamageByEntityEvent event, Entity target, ItemStack item) { return false; }
     public boolean breakBlockAction(Player player, BlockBreakEvent event, Block block, ItemStack item) { return false; }
-    public boolean clickedInInventoryAction(Player player, InventoryClickEvent event, ItemStack item, ItemStack addition) {
-        Utilities.addEnchantGlint(addition);
-        player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1,1);
-        event.setCancelled(true);
-        return true;
-    }
+    public boolean clickedInInventoryAction(Player player, InventoryClickEvent event, ItemStack item, ItemStack addition) { return false; }
     public boolean activeEffect(Player player, ItemStack item) { return false; }
 }

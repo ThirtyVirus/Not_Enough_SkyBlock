@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="UberItems">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../imports/UberItems.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Test Server/plugins/UberItems.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

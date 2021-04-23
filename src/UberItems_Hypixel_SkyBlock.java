@@ -1,5 +1,7 @@
-import items.example_uber_item;
+import events.PlayerInteract;
+import items.*;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,7 +21,7 @@ public class UberItems_Hypixel_SkyBlock extends JavaPlugin {
 
         // enforce UberItems dependancy
         if (Bukkit.getPluginManager().getPlugin("UberItems") == null) {
-            this.getLogger().severe("UberItems Addons requires UberItems! disabled because UberItems dependency not found");
+            this.getLogger().severe("UberItems Hypixel SkyBlock requires UberItems! disabled because UberItems dependency not found");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
@@ -37,60 +39,93 @@ public class UberItems_Hypixel_SkyBlock extends JavaPlugin {
         getLogger().info(getDescription().getName() + " V: " + getDescription().getVersion() + " has been disabled");
     }
     private void registerEvents() {
-
+        getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
     }
 
-    // NEW UBER ITEM CHECKLIST
-
-    // - make a new class file, named with all lowercase lettering and underscores for spaces
-    // - copy the UberItemTemplate class contents into the new class, extend UberItem
-    // - make a putItem entry, follow the format of previous items and make sure to give a unique id
-    // - write the unique item ability code in the appropriate method
-
-    // - add the following line of code just after executing the item's ability:
-    //      onItemUse(player, item); // confirm that the item's ability has been successfully used
-
-    // - if the ability needs a cooldown, prefix it's code with a variation of the following line of code:
-    //      if (!Utilities.enforceCooldown(getMain(), player, "name", 1, item, true)) return;
-
-    // - if the item needs work done on create (like adding enchantments, adding other data) refer to onItemStackCreate
-    // - if the item needs a prefix or suffix in its description,
-    //   refer to the getSpecificLorePrefix and getSpecificLoreSuffix functions, then add the following:
-    //      lore.add(ChatColor.RESET + "text goes here");
-
-    // - if you need to store & retrieve ints and strings from items, you can use the following functions:
-    //      Utilities.storeIntInItem(getMain(), item, 1, "number tag");
-    //      if (Utilities.getIntFromItem(getMain(), item, "number tag") == 1) // { blah blah blah }
-    //      (the same case for strings, just storeStringInItem and getStringFromItem)
-
     private void registerUberItems() {
-        UberItems.putItem("example_uber_item", new example_uber_item(Material.DIAMOND_SHOVEL, "Example Uber Item",
-                UberRarity.UNFINISHED, false, false, true,
-                Collections.singletonList(new UberAbility("Example Ability", AbilityType.RIGHT_CLICK, "Adds an enchantment glint to items when they are clicked onto this item in the inventory... because why not? xD")),
+        UberItems.putItem("builders_wand", new builders_wand(Material.BLAZE_ROD, "Builder's Wand", UberRarity.LEGENDARY,
+                false, false, true,
+                Collections.singletonList(new UberAbility("Contruction!", AbilityType.RIGHT_CLICK, "Right click the face of any block to extend all connected block faces. /newline " + ChatColor.DARK_GRAY + "(consumes blocks from your inventory)")),
                 new UberCraftingRecipe(Arrays.asList(
-                        UberItems.getMaterial("enchanted_chest").makeItem(1),
-                        UberItems.getMaterial("enchanted_diamond").makeItem(1),
-                        UberItems.getMaterial("enchanted_chest").makeItem(1),
+                        new ItemStack(Material.GOLD_BLOCK, 8),
+                        new ItemStack(Material.CHEST),
+                        new ItemStack(Material.GOLD_BLOCK, 8),
+                        new ItemStack(Material.GOLD_BLOCK, 8),
+                        new ItemStack(Material.STICK),
+                        new ItemStack(Material.GOLD_BLOCK, 8),
+                        new ItemStack(Material.GOLD_BLOCK, 8),
+                        new ItemStack(Material.STICK),
+                        new ItemStack(Material.GOLD_BLOCK, 8)), false, 1)));
+
+        UberItems.putItem("aspect_of_the_end", new aspect_of_the_end(Material.DIAMOND_SWORD, "Aspect Of The End", UberRarity.RARE,
+                false, false, false,
+                Collections.singletonList(new UberAbility("Instant Transmission", AbilityType.RIGHT_CLICK, "Teleport " + ChatColor.GREEN + "8 blocks" + ChatColor.GRAY + " ahead of you and gain " + ChatColor.GREEN + "+50 " + ChatColor.WHITE + "✦ Speed" + ChatColor.GRAY + " for " + ChatColor.GREEN + "3 seconds")),
+                new UberCraftingRecipe(Arrays.asList(
                         new ItemStack(Material.AIR),
-                        new ItemStack(Material.STICK, 8),
+                        UberItems.getMaterial("enchanted_ender_pearl").makeItem(16),
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.AIR),
-                        new ItemStack(Material.STICK, 8),
+                        UberItems.getMaterial("enchanted_ender_pearl").makeItem(16),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.OBSIDIAN, 64),
+                        new ItemStack(Material.AIR)), false, 1)));
+
+        UberItems.putItem("ember_rod", new ember_rod(Material.BLAZE_ROD, "Ember Rod", UberRarity.EPIC,
+                false, false, false,
+                Collections.singletonList(new UberAbility("Fire Blast!", AbilityType.RIGHT_CLICK, "Shoot 3 FireBalls in rapid succession in front of you!", 30)),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("flammable_substance").makeItem(32),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.BLAZE_ROD),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.BLAZE_ROD),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR)), false, 1)));
+
+        UberItems.putItem("grappling_hook", new grappling_hook(Material.FISHING_ROD, "Grappling Hook", UberRarity.UNCOMMON,
+                false, false, false, Collections.emptyList(),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.STICK),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.STICK),
+                        UberItems.getMaterial("enchanted_string").makeItem(1),
+                        new ItemStack(Material.STICK),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("enchanted_string").makeItem(1)), false, 1)));
+
+        UberItems.putItem("plumbers_sponge", new plumbers_sponge(Material.SPONGE, "Plumber's Sponge", UberRarity.UNCOMMON,
+                true, true, true,
+                Collections.singletonList(new UberAbility("Drain", AbilityType.RIGHT_CLICK, "Instructions: 1. Place on water. 2. Drains other water. 3. Double-bill client. " + ChatColor.DARK_GRAY + "Thanks Plumber Joe!")),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.CHORUS_FRUIT),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.CHORUS_FRUIT),
+                        new ItemStack(Material.SPONGE, 8),
+                        new ItemStack(Material.CHORUS_FRUIT),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.CHORUS_FRUIT),
+                        new ItemStack(Material.AIR)), false, 4)));
+
+        UberItems.putItem("treecapitator", new treecapitator(Material.GOLDEN_AXE, "Treecapitator", UberRarity.EPIC,
+                false, false, false, Collections.emptyList(),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.GOLD_BLOCK, 64),
+                        new ItemStack(Material.GOLD_BLOCK, 64),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.GOLD_BLOCK, 64),
+                        new ItemStack(Material.STICK),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.STICK),
                         new ItemStack(Material.AIR)), false, 1)));
     }
     private void registerUberMaterials() {
-        UberItems.putMaterial("enchanted_sponge", new UberMaterial(Material.SPONGE,
-                "Enchanted Sponge", UberRarity.RARE, true, false, false,
-                "idk why I chose sponge, but hey this demonstrates how to make a custom UberMaterial lol",
-                new UberCraftingRecipe(Arrays.asList(
-                        new ItemStack(Material.AIR),
-                        new ItemStack(Material.SPONGE, 32),
-                        new ItemStack(Material.AIR),
-                        new ItemStack(Material.SPONGE, 32),
-                        new ItemStack(Material.SPONGE, 32),
-                        new ItemStack(Material.SPONGE, 32),
-                        new ItemStack(Material.AIR),
-                        new ItemStack(Material.SPONGE, 32),
-                        new ItemStack(Material.AIR)), false, 1)));
+
     }
 }
