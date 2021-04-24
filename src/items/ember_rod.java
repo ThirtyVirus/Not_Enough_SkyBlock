@@ -33,7 +33,7 @@ public class ember_rod extends UberItem {
     public boolean rightClickAirAction(Player player, ItemStack item) {
 
         // enforce the 30 second cooldown of the fireball ability
-        if (!Utilities.enforceCooldown(player, "fireball", 30, item, true)) return false;
+        if (Utilities.enforceCooldown(player, "fireball", 30, item, true)) return false;
 
         // shoot 3 fireballs
         int amount = 3; // minimum 1

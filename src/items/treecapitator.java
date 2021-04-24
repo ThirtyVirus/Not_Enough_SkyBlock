@@ -50,7 +50,7 @@ public class treecapitator extends UberItem {
     public boolean breakBlockAction(Player player, BlockBreakEvent event, Block block, ItemStack item) {
 
         // enforce the 2 second cooldown of the treecap "ability"
-        if (!Utilities.enforceCooldown(player, "treecap", 2, item, false)) return false;
+        if (Utilities.enforceCooldown(player, "treecap", 2, item, false)) return false;
 
         if (block.getType().name().contains("LOG") || block.getType().name().contains("LEAVES"))
             doBlockEater(player, block, 35);

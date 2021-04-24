@@ -1,6 +1,5 @@
 package events;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,10 +28,10 @@ public class PlayerInteract implements Listener {
                 Utilities.repairItem(item);
 
                 // enforce premium vs lite, item rarity perms, item specific perms
-                if (!Utilities.enforcePermissions(player, uber)) return;
+                if (Utilities.enforcePermissions(player, uber)) return;
 
                 // enforce 1.5s cooldown on the grappling hook
-                if (!Utilities.enforceCooldown(player, "grapple", 1.5, item, false)) {
+                if (Utilities.enforceCooldown(player, "grapple", 1.5, item, false)) {
                     Utilities.warnPlayer(player, "Whow! Slow down there!");
                     return;
                 }
