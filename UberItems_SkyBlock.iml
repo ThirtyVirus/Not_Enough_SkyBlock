@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="spigot-1.16.5" level="project" />
     <orderEntry type="library" name="UberItems" level="project" />
+    <orderEntry type="library" name="spigot-1.14.3" level="project" />
   </component>
 </module>
