@@ -1,6 +1,6 @@
-main: UberItems_Hypixel_SkyBlock
+main: UberItems_SkyBlock
 version: 1.1
-name: UberItemsHypixelSkyBlock
+name: UberItemsSkyBlock
 api-version: 1.13
 
 softdepend: [UberItems]

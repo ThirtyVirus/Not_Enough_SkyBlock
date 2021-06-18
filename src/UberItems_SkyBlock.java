@@ -15,13 +15,13 @@ import thirtyvirus.uber.helpers.UberRarity;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class UberItems_Hypixel_SkyBlock extends JavaPlugin {
+public class UberItems_SkyBlock extends JavaPlugin {
 
     public void onEnable() {
 
         // enforce UberItems dependancy
         if (Bukkit.getPluginManager().getPlugin("UberItems") == null) {
-            this.getLogger().severe("UberItems Hypixel SkyBlock requires UberItems! disabled because UberItems dependency not found");
+            this.getLogger().severe("UberItems SkyBlock requires UberItems! disabled because UberItems dependency not found");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
