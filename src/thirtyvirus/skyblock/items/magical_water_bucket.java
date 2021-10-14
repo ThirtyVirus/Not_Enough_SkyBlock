@@ -1,8 +1,7 @@
-package items;
+package thirtyvirus.skyblock.items;
 
-import org.bukkit.Location;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -19,40 +18,31 @@ import thirtyvirus.uber.helpers.Utilities;
 
 import java.util.List;
 
-public class aspect_of_the_end extends UberItem {
+public class magical_water_bucket extends UberItem {
 
-    public aspect_of_the_end(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
+    public magical_water_bucket(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
         super(material, name, rarity, stackable, oneTimeUse, hasActiveEffect, abilities, craftingRecipe);
     }
-    public void onItemStackCreate(ItemStack item) { }
-    public void getSpecificLorePrefix(List<String> lore, ItemStack item) { }
-    public void getSpecificLoreSuffix(List<String> lore, ItemStack item) { }
-
-    public boolean leftClickAirAction(Player player, ItemStack item) { return false; }
-    public boolean leftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
-
-    // teleport ability
-    public boolean rightClickAirAction(Player player, ItemStack item) {
-        Location l = player.getLocation().clone();
-        l.add(player.getEyeLocation().getDirection().multiply(8));
-        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1f,1f);
-        player.teleport(l);
-
-        if (Utilities.getIntFromItem(item, "has_teleported") == 0) {
-            // change player speed
-            player.setWalkSpeed(player.getWalkSpeed() + 0.05f);
-            Utilities.storeIntInItem(item, 1, "has_teleported");
-
-            // remove player speed after 3 seconds
-            Utilities.scheduleTask(new Runnable() { public void run() {
-                player.setWalkSpeed(player.getWalkSpeed() - 0.05f);
-                Utilities.storeIntInItem(item, 0, "has_teleported");
-            } }, 60);
-        }
-
-        return true;
+    public void onItemStackCreate(ItemStack item) {
+        Utilities.addEnchantGlint(item); }
+    public void getSpecificLorePrefix(List<String> lore, ItemStack item) {
+        lore.add("" + ChatColor.RESET + ChatColor.GRAY + "This Magical Water Bucket will");
+        lore.add("" + ChatColor.RESET + ChatColor.GRAY + "never run out of water, no");
+        lore.add("" + ChatColor.RESET + ChatColor.GRAY + "matter how many times it is");
+        lore.add("" + ChatColor.RESET + ChatColor.GRAY + "emptied.");
     }
-    public boolean rightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
+    public void getSpecificLoreSuffix(List<String> lore, ItemStack item) { }
+    public boolean leftClickAirAction(Player player, ItemStack item) { return false; }
+    public boolean leftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return leftClickAirAction(player, item); }
+
+    public boolean rightClickAirAction(Player player, ItemStack item) {
+        if (player.getInventory().getItemInMainHand().equals(item))
+            Utilities.scheduleTask(()-> player.getInventory().setItemInMainHand(item.clone()), 1);
+        if (player.getInventory().getItemInOffHand().equals(item))
+            Utilities.scheduleTask(()-> player.getInventory().setItemInOffHand(item.clone()), 1);
+        return false; }
+    public boolean rightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return rightClickAirAction(player, item); }
+
     public boolean shiftLeftClickAirAction(Player player, ItemStack item) { return false; }
     public boolean shiftLeftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
     public boolean shiftRightClickAirAction(Player player, ItemStack item) { return false; }

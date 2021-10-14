@@ -1,9 +1,10 @@
-package items;
+package thirtyvirus.skyblock.items;
 
-import org.bukkit.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -14,26 +15,37 @@ import thirtyvirus.uber.UberItem;
 import thirtyvirus.uber.helpers.UberAbility;
 import thirtyvirus.uber.helpers.UberCraftingRecipe;
 import thirtyvirus.uber.helpers.UberRarity;
+import thirtyvirus.uber.helpers.Utilities;
 
 import java.util.List;
+import java.util.UUID;
 
-public class grappling_hook extends UberItem {
+public class phantom_rod extends UberItem {
 
-    public grappling_hook(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
+    public phantom_rod(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
         super(material, name, rarity, stackable, oneTimeUse, hasActiveEffect, abilities, craftingRecipe);
     }
     public void onItemStackCreate(ItemStack item) { }
-    public void getSpecificLorePrefix(List<String> lore, ItemStack item) {
-        lore.add(ChatColor.RESET + "" + ChatColor.GRAY + "Travel around in style using");
-        lore.add(ChatColor.RESET + "" + ChatColor.GRAY + "this Grappling Hook.");
-        lore.add(ChatColor.RESET + "" + ChatColor.DARK_GRAY + "2 second cooldown");
-    }
+    public void getSpecificLorePrefix(List<String> lore, ItemStack item) {  }
     public void getSpecificLoreSuffix(List<String> lore, ItemStack item) { }
 
-    public boolean leftClickAirAction(Player player, ItemStack item) { return false; }
-    public boolean leftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
+    public boolean leftClickAirAction(Player player, ItemStack item) {
+
+        String storedEntity = Utilities.getStringFromItem(item, "caught");
+        if (storedEntity == null) return false;
+        UUID uuid = UUID.fromString(storedEntity);
+        Entity entity = Bukkit.getEntity(uuid);
+        if (!(entity instanceof LivingEntity)) return false;
+        LivingEntity caught = (LivingEntity) entity;
+
+        caught.damage(4);
+
+        return false;
+    }
+    public boolean leftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return leftClickAirAction(player, item); }
+
     public boolean rightClickAirAction(Player player, ItemStack item) { return false; }
-    public boolean rightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { event.setCancelled(false); return false; }
+    public boolean rightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
     public boolean shiftLeftClickAirAction(Player player, ItemStack item) { return false; }
     public boolean shiftLeftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
     public boolean shiftRightClickAirAction(Player player, ItemStack item) { return false; }

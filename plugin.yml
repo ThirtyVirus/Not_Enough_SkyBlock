@@ -1,6 +1,10 @@
-main: UberItems_SkyBlock
-version: 1.1
+main: thirtyvirus.skyblock.UberItems_SkyBlock
+version: 1.2
 name: UberItemsSkyBlock
 api-version: 1.13
+
+commands:
+  wandoops:
+    description: Restore blocks accidentally placed by the builder's wand
 
 softdepend: [UberItems]

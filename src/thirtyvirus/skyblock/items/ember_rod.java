@@ -1,11 +1,9 @@
-package items;
+package thirtyvirus.skyblock.items;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -21,9 +19,9 @@ import thirtyvirus.uber.helpers.Utilities;
 
 import java.util.List;
 
-public class aspect_of_the_dragons extends UberItem {
+public class ember_rod extends UberItem {
 
-    public aspect_of_the_dragons(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
+    public ember_rod(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
         super(material, name, rarity, stackable, oneTimeUse, hasActiveEffect, abilities, craftingRecipe);
     }
     public void onItemStackCreate(ItemStack item) { }
@@ -32,15 +30,23 @@ public class aspect_of_the_dragons extends UberItem {
 
     public boolean leftClickAirAction(Player player, ItemStack item) { return false; }
     public boolean leftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
-
-    // teleport ability
     public boolean rightClickAirAction(Player player, ItemStack item) {
-        knockbackAttack(player, 4,10);
-        player.getWorld().playSound(player.getLocation().add(0,1,0), Sound.ENTITY_ENDER_DRAGON_GROWL, 1,1);
+
+        // enforce the 30 second cooldown of the fireball ability
+        if (Utilities.enforceCooldown(player, "fireball", 30, item, true)) return false;
+
+        // shoot 3 fireballs
+        int amount = 3; // minimum 1
+        shootFireBall(player);
+        for (int counter = 1; counter < amount; counter++) {
+            Utilities.scheduleTask(() -> shootFireBall(player), 10 * counter);
+        }
 
         return true;
     }
-    public boolean rightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return rightClickAirAction(player, item); }
+    public boolean rightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) {
+        return rightClickAirAction(player, item);
+    }
     public boolean shiftLeftClickAirAction(Player player, ItemStack item) { return false; }
     public boolean shiftLeftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
     public boolean shiftRightClickAirAction(Player player, ItemStack item) { return false; }
@@ -51,31 +57,12 @@ public class aspect_of_the_dragons extends UberItem {
     public boolean clickedInInventoryAction(Player player, InventoryClickEvent event, ItemStack item, ItemStack addition) { return false; }
     public boolean activeEffect(Player player, ItemStack item) { return false; }
 
-    private void knockbackAttack(Player player, int damage, float range) {
-        Vector looking = player.getLocation().getDirection();
-        List<Entity> entities = player.getNearbyEntities(range, range, range);
+    public void shootFireBall(Player player) {
+        Fireball thrown = player.launchProjectile(Fireball.class);
+        Vector v = player.getEyeLocation().getDirection().multiply(2.0);
+        thrown.setVelocity(v);
+        thrown.setYield(5);
 
-        for (Entity e : entities) {
-            // test if the entity can be damaged and isnt the player
-            if (e instanceof LivingEntity && !e.equals(player)) {
-                ((LivingEntity) e).damage(damage);
-                Vector direction = e.getLocation().toVector().subtract(player.getLocation().toVector());
-                double angle = looking.angle(direction);
-
-                // scale damage depending on how close you are to the mob
-                double distance = player.getLocation().distance(e.getLocation());
-                double kb = 5 - (5 * distance / (range - 1) / 2);
-
-                if (angle < 1) {
-                    double x = direction.getX() / Math.abs(direction.getX());
-                    double y = direction.getY();
-                    double z = direction.getZ() / Math.abs(direction.getZ());
-                    direction = new Vector(x, y, z);
-
-                    direction.multiply(kb);
-                    e.setVelocity(direction);
-                }
-            }
-        }
+        thrown.setCustomName("UberFireBall");
     }
 }

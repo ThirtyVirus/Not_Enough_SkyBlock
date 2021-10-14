@@ -1,4 +1,4 @@
-package items;
+package thirtyvirus.skyblock.items;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

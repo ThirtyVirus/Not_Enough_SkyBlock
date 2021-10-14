@@ -1,8 +1,9 @@
-package items;
+package thirtyvirus.skyblock.items;
 
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -12,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+import thirtyvirus.skyblock.UberItems_SkyBlock;
 import thirtyvirus.uber.UberItem;
 import thirtyvirus.uber.helpers.UberAbility;
 import thirtyvirus.uber.helpers.UberCraftingRecipe;
@@ -22,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class builders_wand extends UberItem {
-	// TODO /wandoops command to undo wand action
 	// TODO make the wand obey area build permissions
 
 	public builders_wand(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
@@ -39,6 +40,10 @@ public class builders_wand extends UberItem {
 	public boolean rightClickAirAction(Player player, ItemStack item) { return false; }
 
 	public boolean rightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) {
+
+		// cooldown to prevent placing blocks too fast
+		if (Utilities.enforceCooldown(player, "build", 0.5, item, false)) return false;
+
 		fillConnectedFaces(player, block, event.getBlockFace(), item);
 		return true;
 	}
@@ -46,7 +51,7 @@ public class builders_wand extends UberItem {
 	public boolean shiftLeftClickAirAction(Player player, ItemStack item) { return false; }
 	public boolean shiftLeftClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
 	public boolean shiftRightClickAirAction(Player player, ItemStack item) { return false; }
-	public boolean shiftRightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
+	public boolean shiftRightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return rightClickBlockAction(player, event, block, item); }
 	public boolean middleClickAction(Player player, ItemStack item) { return false; }
 
 	public boolean hitEntityAction(Player player, EntityDamageByEntityEvent event, Entity target, ItemStack item) { return false; }
@@ -63,6 +68,9 @@ public class builders_wand extends UberItem {
 		ArrayList<Block> blocks = new ArrayList<>(); blocks.add(origin);
 		Location l; World w = player.getWorld(); Vector[] check = null; Vector translate = null;
 		int blocksPlaced = 0;
+
+		List<BlockState> blockStates = new ArrayList<>();
+		blockStates.add(origin.getState());
 
 		// establish which blocks to check, depending on the block face's axis
 		switch (face) {
@@ -110,6 +118,7 @@ public class builders_wand extends UberItem {
 
 				blocks.removeIf(blocks.get(0)::equals);
 				if (fillBlock.getType() != fillMaterial) {
+					blockStates.add(fillBlock.getState());
 					fillBlock.setType(fillMaterial);
 					blockLimit -= 1; blocksPlaced++;
 				}
@@ -126,6 +135,8 @@ public class builders_wand extends UberItem {
 			player.playSound(player.getLocation(), Sound.ENTITY_SHULKER_BULLET_HIT, 1, 1);
 			player.getWorld().playEffect(player.getEyeLocation(), Effect.SMOKE, 0);
 		}
+
+		UberItems_SkyBlock.putWandOops(player, blockStates);
 	}
 	
 	// counts amount of blocks of type m in inventory inv
