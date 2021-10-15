@@ -3,19 +3,20 @@ package thirtyvirus.skyblock.events;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.MainHand;
 import org.bukkit.potion.PotionType;
 import org.bukkit.util.Vector;
 import thirtyvirus.uber.UberItem;
@@ -24,6 +25,7 @@ import thirtyvirus.uber.helpers.Utilities;
 
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 public class UberEvent implements Listener {
 
@@ -111,6 +113,9 @@ public class UberEvent implements Listener {
         if (event.getEntityType() != EntityType.PLAYER) return;
         Player player = (Player) event.getEntity();
 
+        if (UberItems.getItem("souls_rebound").compare(event.getBow())) {
+            Utilities.tagEntity(event.getProjectile(), player.getUniqueId().toString(), "rebound");
+        }
 
         if (UberItems.getItem("runaans_bow").compare(event.getBow())) {
             Utilities.repairItem(event.getBow());
@@ -121,9 +126,28 @@ public class UberEvent implements Listener {
 
     @EventHandler
     private void onArrowLand(ProjectileHitEvent event) {
+
         if (event.getEntity() instanceof Arrow && !Utilities.getEntityTag(event.getEntity(), "homing").equals("")) {
             // delete any homing arrows that land
             if (event.getHitBlock() != null) event.getEntity().remove();
+        }
+
+        // tag the target entity with souls rebound ability
+        if (event.getEntity() instanceof Arrow && event.getHitBlock() == null && event.getHitEntity() instanceof LivingEntity &&
+                !Utilities.getEntityTag(event.getEntity(), "rebound").equals("")) {
+
+            // check if the mob already is effected by another souls rebound arrow
+            String testForPrevious = Utilities.getEntityTag(event.getHitEntity(), "reboundtime");
+            double time = (double)System.currentTimeMillis() / 1000;
+            double oldTime = 0; if (!testForPrevious.equals("")) oldTime = Double.parseDouble(testForPrevious);
+            if (time - 5 > oldTime) {
+                Utilities.tagEntity(event.getHitEntity(), Utilities.getEntityTag(event.getEntity(), "rebound"), "rebound");
+                Utilities.tagEntity(event.getHitEntity(), "0", "rdmg");
+                Utilities.tagEntity(event.getHitEntity(), Double.toString(time), "reboundtime");
+                Utilities.scheduleTask(()->soulsReboundAbility((LivingEntity)event.getHitEntity()), 100);
+                event.getEntity().getWorld().playSound(event.getEntity().getLocation(), Sound.ENTITY_GHAST_HURT, 1, 3);
+            }
+
         }
 
         if (event.getEntity() instanceof Arrow && !Utilities.getEntityTag(event.getEntity(), "juju").equals("")) {
@@ -149,6 +173,33 @@ public class UberEvent implements Listener {
             }
             event.getEntity().remove();
 
+        }
+    }
+
+    @EventHandler
+    private void onEntityDamaged(EntityDamageByEntityEvent event) {
+
+        // cancel damage from rebound arrow directly
+        if (event.getDamager() instanceof Arrow) {
+            if (!Utilities.getEntityTag(event.getDamager(), "rebound").equals("")) {
+                event.getDamager().remove();
+                event.setCancelled(true);
+            }
+        }
+
+        if (!(event.getDamager() instanceof Player)) return;
+        Player player = (Player)event.getDamager();
+        if (!(event.getEntity() instanceof LivingEntity)) return;
+        LivingEntity entity = (LivingEntity)event.getEntity();
+
+        // mob is being effected by Souls Rebound Ability
+        if (Utilities.getEntityTag(entity, "rebound").equals(player.getUniqueId().toString())) {
+            double damage = Double.parseDouble(Utilities.getEntityTag(entity, "rdmg"));
+            damage += event.getFinalDamage();
+
+            Utilities.tagEntity(entity, Double.toString(damage), "rdmg");
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
+            event.setCancelled(true);
         }
     }
 
@@ -180,7 +231,6 @@ public class UberEvent implements Listener {
     }
 
     private static void freezeEntity(Entity e, Location l, int counter) {
-
         e.teleport(l);
         if (counter > 0) Utilities.scheduleTask(() -> freezeEntity(e, l, counter - 1), 2);
     }
@@ -196,6 +246,25 @@ public class UberEvent implements Listener {
         }
         return distance;
 
+    }
+
+    private static void soulsReboundAbility(LivingEntity entity) {
+        if (entity.isDead()) return;
+
+        String s1 = Utilities.getEntityTag(entity, "rebound");
+        String s2 = Utilities.getEntityTag(entity, "rdmg");
+
+        Player player = Bukkit.getPlayer(UUID.fromString(s1));
+        if (player == null) return;
+        double damage = 0; if (!s2.equals("")) damage = Double.parseDouble(s2);
+        damage *= 1.2;
+
+        Utilities.informPlayer(player, "Dealt " + Math.round(damage) + " damage to enemy using Souls Rebound");
+        player.playSound(player.getLocation(), Sound.ENTITY_GHAST_DEATH, 1, 3);
+        entity.damage(damage);
+
+        Utilities.tagEntity(entity, "", "reboundplayer");
+        Utilities.tagEntity(entity, "", "rdmg");
     }
 
 }

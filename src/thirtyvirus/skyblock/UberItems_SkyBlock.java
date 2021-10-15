@@ -217,6 +217,10 @@ public class UberItems_SkyBlock extends JavaPlugin {
                         UberItems.getMaterial("enchanted_bone").makeItem(64),
                         UberItems.getMaterial("enchanted_string").makeItem(64)), false, 1)));
 
+        UberItems.putItem("souls_rebound", new souls_rebound(Material.BOW, "Souls Rebound", UberRarity.EPIC,
+                false, false, false,
+                Collections.emptyList(), null));
+
         UberItems.putItem("aspect_of_the_dragons", new aspect_of_the_dragons(Material.DIAMOND_SWORD, "Aspect of the Dragons", UberRarity.LEGENDARY,
                 false, false, false,
                 Collections.singletonList(new UberAbility("Dragon Rage", AbilityType.RIGHT_CLICK, "All Monsters and Players /newline in front of you take " + ChatColor.GREEN + "4" + ChatColor.GRAY + " damage. Hit monsters take large knockback.")),
