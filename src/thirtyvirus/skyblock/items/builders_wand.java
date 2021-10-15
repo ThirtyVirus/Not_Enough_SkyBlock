@@ -40,11 +40,7 @@ public class builders_wand extends UberItem {
 	public boolean rightClickAirAction(Player player, ItemStack item) { return false; }
 
 	public boolean rightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) {
-
-		// cooldown to prevent placing blocks too fast
-		if (Utilities.enforceCooldown(player, "build", 0.5, item, false)) return false;
-
-		fillConnectedFaces(player, block, event.getBlockFace(), item);
+		Utilities.scheduleTask(()->fillConnectedFaces(player, block, event.getBlockFace(), item), 1);
 		return true;
 	}
 
