@@ -1,6 +1,7 @@
 package thirtyvirus.skyblock.items;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -11,6 +12,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 import thirtyvirus.uber.UberItem;
 import thirtyvirus.uber.helpers.UberAbility;
 import thirtyvirus.uber.helpers.UberCraftingRecipe;
@@ -31,12 +33,17 @@ public class phantom_rod extends UberItem {
 
     public boolean leftClickAirAction(Player player, ItemStack item) {
 
-        String storedEntity = Utilities.getStringFromItem(item, "caught");
-        if (storedEntity == null) return false;
-        UUID uuid = UUID.fromString(storedEntity);
-        Entity entity = Bukkit.getEntity(uuid);
+        // get the caught entity
+        String storedEntity = Utilities.getStringFromItem(item, "caught"); if (storedEntity == null) return false;
+        UUID uuid = UUID.fromString(storedEntity); Entity entity = Bukkit.getEntity(uuid);
         if (!(entity instanceof LivingEntity)) return false;
         LivingEntity caught = (LivingEntity) entity;
+
+        // damage entity and push it away
+        Location l1 = player.getLocation();
+        Location l2 = caught.getLocation();
+        Vector v = new Vector(l2.getX() - l1.getX(), 1, l2.getZ() - l1.getZ());
+        caught.setVelocity(v.normalize());
 
         caught.damage(4);
 

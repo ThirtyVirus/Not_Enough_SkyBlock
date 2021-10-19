@@ -16,6 +16,7 @@ import thirtyvirus.uber.UberItem;
 import thirtyvirus.uber.helpers.UberAbility;
 import thirtyvirus.uber.helpers.UberCraftingRecipe;
 import thirtyvirus.uber.helpers.UberRarity;
+import thirtyvirus.uber.helpers.Utilities;
 
 import java.util.List;
 
@@ -45,8 +46,14 @@ public class aspect_of_the_dragons extends UberItem {
     public boolean shiftRightClickAirAction(Player player, ItemStack item) { return rightClickAirAction(player, item); }
     public boolean shiftRightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return rightClickAirAction(player, item); }
     public boolean middleClickAction(Player player, ItemStack item) { return false; }
-    public boolean hitEntityAction(Player player, EntityDamageByEntityEvent event, Entity target, ItemStack item) { return false; }
-    public boolean breakBlockAction(Player player, BlockBreakEvent event, Block block, ItemStack item) { return false; }
+    public boolean hitEntityAction(Player player, EntityDamageByEntityEvent event, Entity target, ItemStack item) {
+        Utilities.repairItem(item);
+        return false;
+    }
+    public boolean breakBlockAction(Player player, BlockBreakEvent event, Block block, ItemStack item) {
+        Utilities.repairItem(item);
+        return false;
+    }
     public boolean clickedInInventoryAction(Player player, InventoryClickEvent event, ItemStack item, ItemStack addition) { return false; }
     public boolean activeEffect(Player player, ItemStack item) { return false; }
 

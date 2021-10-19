@@ -5,6 +5,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import thirtyvirus.skyblock.commands.WandOops;
 import thirtyvirus.skyblock.events.UberEvent;
+import thirtyvirus.skyblock.helpers.utils;
 import thirtyvirus.skyblock.items.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,8 +16,6 @@ import thirtyvirus.uber.helpers.*;
 import java.util.*;
 
 public class nes extends JavaPlugin {
-
-    private static Map<Player, List<BlockState>> wandOops = new HashMap<>();
 
     public void onEnable() {
 
@@ -44,7 +43,6 @@ public class nes extends JavaPlugin {
     // register commands
     private void registerCommands() {
         getCommand("wandoops").setExecutor(new WandOops());
-
     }
     private void registerEvents() {
         getServer().getPluginManager().registerEvents(new UberEvent(), this);
@@ -115,18 +113,53 @@ public class nes extends JavaPlugin {
         UberItems.putItem("zombie_sword", new zombie_sword(Material.IRON_SWORD, "Zombie Sword", UberRarity.RARE,
                 false, false, false,
                 Collections.singletonList(new UberAbility("Instant Heal", AbilityType.RIGHT_CLICK, "Heal for " +
-                        ChatColor.RED + "20%" + ChatColor.GRAY + " and heal players within " +
-                        ChatColor.GREEN + "7" + ChatColor.GRAY + " blocks for " + ChatColor.RED + "10%" + ChatColor.GRAY + ".")),
-                        new UberCraftingRecipe(Arrays.asList(
-                                new ItemStack(Material.AIR),
-                                UberItems.getMaterial("zombie_heart").makeItem(1),
-                                new ItemStack(Material.AIR),
-                                new ItemStack(Material.AIR),
-                                UberItems.getMaterial("zombie_heart").makeItem(1),
-                                new ItemStack(Material.AIR),
-                                new ItemStack(Material.AIR),
-                                new ItemStack(Material.STICK),
-                                new ItemStack(Material.AIR)), false, 1)));
+                        ChatColor.RED + "1.5 hearts" + ChatColor.GRAY + " and heal players within " +
+                        ChatColor.GREEN + "7" + ChatColor.GRAY + " blocks for " + ChatColor.RED + "0.5 hearts" + ChatColor.GRAY +
+                        ". " + ChatColor.DARK_GRAY + "Charges: " + ChatColor.YELLOW + "4" + ChatColor.DARK_GRAY + " / " + ChatColor.GREEN + "15s")),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("zombie_heart").makeItem(1),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("zombie_heart").makeItem(1),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.STICK),
+                        new ItemStack(Material.AIR)), false, 1)));
+
+        UberItems.putItem("ornate_zombie_sword", new ornate_zombie_sword(Material.GOLDEN_SWORD, "Ornate Zombie Sword", UberRarity.EPIC,
+                false, false, false,
+                Collections.singletonList(new UberAbility("Instant Heal", AbilityType.RIGHT_CLICK, "Heal for " +
+                        ChatColor.RED + "2 hearts" + ChatColor.GRAY + " and heal players within " +
+                        ChatColor.GREEN + "7" + ChatColor.GRAY + " blocks for " + ChatColor.RED + "1 heart" + ChatColor.GRAY +
+                        ". " + ChatColor.DARK_GRAY + "Charges: " + ChatColor.YELLOW + "5" + ChatColor.DARK_GRAY + " / " + ChatColor.GREEN + "15s")),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("enchanted_gold_block").makeItem(1),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("golden_powder").makeItem(1),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        UberItems.getItem("zombie_sword").makeItem(1),
+                        new ItemStack(Material.AIR)), false, 1)));
+
+        UberItems.putItem("florid_zombie_sword", new florid_zombie_sword(Material.GOLDEN_SWORD, "Florid Zombie Sword", UberRarity.LEGENDARY,
+                false, false, false,
+                Collections.singletonList(new UberAbility("Instant Heal", AbilityType.RIGHT_CLICK, "Heal for " +
+                        ChatColor.RED + "2.5 hearts" + ChatColor.GRAY + " and heal players within " +
+                        ChatColor.GREEN + "8" + ChatColor.GRAY + " blocks for " + ChatColor.RED + "1.5 hearts" + ChatColor.GRAY +
+                        ". " + ChatColor.DARK_GRAY + "Charges: " + ChatColor.YELLOW + "7" + ChatColor.DARK_GRAY + " / " + ChatColor.GREEN + "15s")),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("healing_tissue").makeItem(12),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("healing_tissue").makeItem(12),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        UberItems.getItem("ornate_zombie_sword").makeItem(1),
+                        new ItemStack(Material.AIR)), false, 1)));
 
         UberItems.putItem("ember_rod", new ember_rod(Material.BLAZE_ROD, "Ember Rod", UberRarity.EPIC,
                 false, false, false,
@@ -230,30 +263,33 @@ public class nes extends JavaPlugin {
     private void registerUberMaterials() {
         UberItems.putMaterial("enchanted_ice", new UberMaterial(Material.ICE, "Enchanted Ice",
                 UberRarity.UNCOMMON, true, true, false, "",
-                generateStandardEnchantedRecipe(Material.ICE)));
+                utils.gser(Material.ICE)));
 
         UberItems.putMaterial("enchanted_rotten_flesh", new UberMaterial(Material.ROTTEN_FLESH, "Enchanted Rotten Flesh",
                 UberRarity.UNCOMMON, true, true, false, "",
-                generateStandardEnchantedRecipe(Material.ROTTEN_FLESH)));
+                utils.gser(Material.ROTTEN_FLESH)));
+
+        UberItems.putMaterial("healing_tissue", new UberMaterial(Material.ROTTEN_FLESH, "Healing Tissue",
+                UberRarity.RARE, false, true, false, "", null));
 
         UberItems.putMaterial("enchanted_jungle_wood", new UberMaterial(Material.JUNGLE_LOG, "Enchanted Jungle Wood",
                 UberRarity.UNCOMMON, true, true, false, "",
-                generateStandardEnchantedRecipe(Material.JUNGLE_LOG)));
+                utils.gser(Material.JUNGLE_LOG)));
 
         UberItems.putMaterial("zombie_heart", new UberMaterial(Utilities.getSkull("http://textures.minecraft.net/texture/71d7c816fc8c636d7f50a93a0ba7aaeff06c96a561645e9eb1bef391655c531"),
                 "Zombie's Heart", UberRarity.RARE, true, false, false, "",
-                generateStandardEnchantedRecipe(UberItems.getMaterial("enchanted_rotten_flesh").makeItem(32))));
+                utils.gser(UberItems.getMaterial("enchanted_rotten_flesh").makeItem(32))));
 
         UberItems.putMaterial("enchanted_emerald", new UberMaterial(Material.EMERALD, "Enchanted Emerald", UberRarity.UNCOMMON, true, true, false, "",
-                generateStandardEnchantedRecipe(Material.EMERALD)));
+                utils.gser(Material.EMERALD)));
 
         UberItems.putMaterial("enchanted_emerald_block", new UberMaterial(Material.EMERALD_BLOCK, "Enchanted Emerald Block",
                 UberRarity.RARE, true, false, false, "",
-                generateStandardEnchantedRecipe(UberItems.getMaterial("enchanted_emerald").makeItem(32))));
+                utils.gser(UberItems.getMaterial("enchanted_emerald").makeItem(32))));
 
         UberItems.putMaterial("enchanted_bone", new UberMaterial(Material.BONE, "Enchanted Bone",
                 UberRarity.UNCOMMON, true, true, false, "",
-                generateStandardEnchantedRecipe(Material.BONE)));
+                utils.gser(Material.BONE)));
 
         UberItems.putMaterial("enchanted_string", new UberMaterial(Material.STRING, "Enchanted String",
                 UberRarity.UNCOMMON, true, true, false, "",
@@ -270,15 +306,23 @@ public class nes extends JavaPlugin {
 
         UberItems.putMaterial("enchanted_obsidian", new UberMaterial(Material.OBSIDIAN, "Enchanted Obsidian",
                 UberRarity.UNCOMMON, true, true, false, "",
-                generateStandardEnchantedRecipe(Material.OBSIDIAN)));
+                utils.gser(Material.OBSIDIAN)));
 
         UberItems.putMaterial("enchanted_quartz", new UberMaterial(Material.QUARTZ, "Enchanted Quartz",
-                UberRarity.RARE, true, true, false, "",
-                generateStandardEnchantedRecipe(Material.QUARTZ)));
+                UberRarity.UNCOMMON, true, true, false, "",
+                utils.gser(Material.QUARTZ)));
 
         UberItems.putMaterial("enchanted_quartz_block", new UberMaterial(Material.QUARTZ_BLOCK, "Enchanted Quartz Block",
+                UberRarity.RARE, true, true, false, "",
+                utils.gser(UberItems.getMaterial("enchanted_quartz").makeItem(32))));
+
+        UberItems.putMaterial("enchanted_gold", new UberMaterial(Material.GOLD_INGOT, "Enchanted Gold",
                 UberRarity.UNCOMMON, true, true, false, "",
-                generateStandardEnchantedRecipe(UberItems.getMaterial("enchanted_quartz").makeItem(32))));
+                utils.gser(Material.QUARTZ)));
+
+        UberItems.putMaterial("enchanted_gold_block", new UberMaterial(Material.GOLD_BLOCK, "Enchanted Gold Block",
+                UberRarity.RARE, true, true, false, "",
+                utils.gser(UberItems.getMaterial("enchanted_gold").makeItem(32))));
 
         UberItems.putMaterial("enchanted_eye_of_ender", new UberMaterial(Material.ENDER_EYE, "Enchanted Eye of Ender",
                 UberRarity.UNCOMMON, true, true, false, "",
@@ -311,51 +355,5 @@ public class nes extends JavaPlugin {
 
         UberItems.putMaterial("golden_powder", new UberMaterial(Material.GLOWSTONE_DUST, "Golden Powder",
                 UberRarity.EPIC, true, true, false, "", null));
-    }
-
-    // generate the standard recipe for an enchanted Uber Material (160 of the base item)
-    private UberCraftingRecipe generateStandardEnchantedRecipe(ItemStack ingredient) {
-        ItemStack newIngredient = ingredient.clone();
-        newIngredient.setAmount(32);
-
-        return new UberCraftingRecipe(Arrays.asList(
-                new ItemStack(Material.AIR),
-                newIngredient,
-                new ItemStack(Material.AIR),
-                newIngredient,
-                newIngredient,
-                newIngredient,
-                new ItemStack(Material.AIR),
-                newIngredient,
-                new ItemStack(Material.AIR)), true, 1);
-    }
-    private UberCraftingRecipe generateStandardEnchantedRecipe(Material material) {
-        return generateStandardEnchantedRecipe(new ItemStack(material));
-    }
-
-    public static void putWandOops(Player player, List<BlockState> blocks) {
-        wandOops.put(player, blocks);
-    }
-    // assumes that the first element of the list is the blockstate from before the wand usage
-    public static void restoreWandOops(Player player) {
-        if (!wandOops.containsKey(player)) {
-            Utilities.warnPlayer(player, "No restore point saved, sorry!");
-            return;
-        }
-
-        List<BlockState> blocks = wandOops.get(player);
-        BlockState returnPoint = blocks.get(0); World world = blocks.get(0).getWorld();
-
-        for (int counter = 1; counter < blocks.size(); counter++) {
-            world.getBlockAt(blocks.get(counter).getLocation()).setType(blocks.get(counter).getType());
-            Bukkit.getLogger().info(blocks.get(counter).getType().toString());
-        }
-
-
-        wandOops.remove(player);
-        Utilities.informPlayer(player, "Builder's Wand use undone, removed " + (blocks.size() - 1) + " blocks");
-
-        if (player.getGameMode() == GameMode.SURVIVAL)
-            player.getInventory().addItem(new ItemStack(returnPoint.getType(), blocks.size() - 1));
     }
 }

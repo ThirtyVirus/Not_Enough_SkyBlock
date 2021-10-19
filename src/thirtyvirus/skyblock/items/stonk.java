@@ -60,7 +60,10 @@ public class stonk extends UberItem {
     public boolean shiftRightClickAirAction(Player player, ItemStack item) { return false; }
     public boolean shiftRightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) { return false; }
     public boolean middleClickAction(Player player, ItemStack item) { return false; }
-    public boolean hitEntityAction(Player player, EntityDamageByEntityEvent event, Entity target, ItemStack item) { return false; }
+    public boolean hitEntityAction(Player player, EntityDamageByEntityEvent event, Entity target, ItemStack item) {
+        Utilities.repairItem(item);
+        return false;
+    }
     public boolean breakBlockAction(Player player, BlockBreakEvent event, Block block, ItemStack item) {
         // repair pickaxe each time it is used
         Utilities.repairItem(item);

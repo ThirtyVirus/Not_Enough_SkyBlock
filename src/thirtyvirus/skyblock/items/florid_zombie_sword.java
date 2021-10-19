@@ -19,9 +19,9 @@ import thirtyvirus.uber.helpers.Utilities;
 
 import java.util.List;
 
-public class zombie_sword extends UberItem {
+public class florid_zombie_sword extends UberItem {
 
-    public zombie_sword(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
+    public florid_zombie_sword(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
         super(material, name, rarity, stackable, oneTimeUse, hasActiveEffect, abilities, craftingRecipe);
     }
     public void onItemStackCreate(ItemStack item) { }
@@ -33,13 +33,13 @@ public class zombie_sword extends UberItem {
 
     public boolean rightClickAirAction(Player player, ItemStack item) {
 
-        if (utils.enforceCharges(player, "zsh", 4, 15, item, true)) return false;
+        if (utils.enforceCharges(player, "zsh", 7, 15, item, true)) return false;
 
-        player.setHealth(player.getHealth() + 3);
+        player.setHealth(player.getHealth() + 5);
         for (Player other : Bukkit.getOnlinePlayers()) {
             if (other.getWorld().equals(player.getWorld())) {
-                if (player.getLocation().distance(other.getLocation()) <= 7) {
-                    other.setHealth(other.getHealth() + 1);
+                if (player.getLocation().distance(other.getLocation()) <= 8) {
+                    other.setHealth(other.getHealth() + 3);
                 }
             }
         }
