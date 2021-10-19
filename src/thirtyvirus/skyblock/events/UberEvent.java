@@ -194,7 +194,8 @@ public class UberEvent implements Listener {
 
         // mob is being effected by Souls Rebound Ability
         if (Utilities.getEntityTag(entity, "rebound").equals(player.getUniqueId().toString())) {
-            double damage = Double.parseDouble(Utilities.getEntityTag(entity, "rdmg"));
+            double damage = 0; String dmg = Utilities.getEntityTag(entity, "rdmg");
+            if (!dmg.equals("")) damage = Double.parseDouble(dmg);
             damage += event.getFinalDamage();
 
             Utilities.tagEntity(entity, Double.toString(damage), "rdmg");

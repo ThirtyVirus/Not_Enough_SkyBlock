@@ -1,6 +1,6 @@
-main: thirtyvirus.skyblock.UberItems_SkyBlock
+main: thirtyvirus.skyblock.nes
 version: 1.2
-name: UberItemsSkyBlock
+name: NotEnoughSkyBlock
 api-version: 1.13
 
 commands:

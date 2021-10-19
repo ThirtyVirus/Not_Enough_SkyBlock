@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-import thirtyvirus.skyblock.UberItems_SkyBlock;
+import thirtyvirus.skyblock.nes;
 import thirtyvirus.uber.UberItem;
 import thirtyvirus.uber.helpers.UberAbility;
 import thirtyvirus.uber.helpers.UberCraftingRecipe;
@@ -132,7 +132,7 @@ public class builders_wand extends UberItem {
 			player.getWorld().playEffect(player.getEyeLocation(), Effect.SMOKE, 0);
 		}
 
-		UberItems_SkyBlock.putWandOops(player, blockStates);
+		nes.putWandOops(player, blockStates);
 	}
 	
 	// counts amount of blocks of type m in inventory inv

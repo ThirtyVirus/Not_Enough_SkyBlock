@@ -14,7 +14,7 @@ import thirtyvirus.uber.helpers.*;
 
 import java.util.*;
 
-public class UberItems_SkyBlock extends JavaPlugin {
+public class nes extends JavaPlugin {
 
     private static Map<Player, List<BlockState>> wandOops = new HashMap<>();
 
@@ -22,7 +22,7 @@ public class UberItems_SkyBlock extends JavaPlugin {
 
         // enforce UberItems dependancy
         if (Bukkit.getPluginManager().getPlugin("UberItems") == null) {
-            this.getLogger().severe("UberItems SkyBlock requires UberItems! disabled because UberItems dependency not found");
+            this.getLogger().severe("Not Enough SkyBlock requires UberItems! disabled because UberItems dependency not found");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
