@@ -35,11 +35,14 @@ public class ornate_zombie_sword extends UberItem {
 
         if (utils.enforceCharges(player, "zsh", 5, 15, item, true)) return false;
 
-        player.setHealth(player.getHealth() + 4);
+        // perform heal on player
+        Utilities.safeHeal(player, 4);
+
+        // perform heal on nearby players
         for (Player other : Bukkit.getOnlinePlayers()) {
             if (other.getWorld().equals(player.getWorld())) {
-                if (player.getLocation().distance(other.getLocation()) <= 7) {
-                    other.setHealth(other.getHealth() + 2);
+                if (player.getLocation().distance(other.getLocation()) <= 7 && !other.equals(player)) {
+                    Utilities.safeHeal(other, 2);
                 }
             }
         }

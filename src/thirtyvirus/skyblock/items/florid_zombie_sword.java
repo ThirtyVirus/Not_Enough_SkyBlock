@@ -35,11 +35,14 @@ public class florid_zombie_sword extends UberItem {
 
         if (utils.enforceCharges(player, "zsh", 7, 15, item, true)) return false;
 
-        player.setHealth(player.getHealth() + 5);
+        // perform heal on player
+        Utilities.safeHeal(player, 5);
+
+        // perform heal on nearby players
         for (Player other : Bukkit.getOnlinePlayers()) {
             if (other.getWorld().equals(player.getWorld())) {
-                if (player.getLocation().distance(other.getLocation()) <= 8) {
-                    other.setHealth(other.getHealth() + 3);
+                if (player.getLocation().distance(other.getLocation()) <= 8 && !other.equals(player)) {
+                    Utilities.safeHeal(other, 3);
                 }
             }
         }
