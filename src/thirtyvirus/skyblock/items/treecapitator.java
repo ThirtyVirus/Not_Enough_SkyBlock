@@ -67,6 +67,8 @@ public class treecapitator extends UberItem {
 
     public void doBlockEater(Player player, Block startingBlock, int amount) {
         if (startingBlock.getType() == Material.AIR) return;
+        if (Utilities.temporaryBlocks.contains(startingBlock)) return;
+
         Material targetMaterial = startingBlock.getType();
 
         ArrayList<Block> blocksToCheck = new ArrayList<>();
@@ -84,7 +86,7 @@ public class treecapitator extends UberItem {
                     Block southBlock = block.getRelative(BlockFace.SOUTH);
                     Block westBlock = block.getRelative(BlockFace.WEST);
                     for (Block nearbyBlock : new ArrayList<Block>(Arrays.asList(upperBlock, lowerBlock, northBlock, eastBlock, southBlock, westBlock))) {
-                        if (nearbyBlock.getType() == targetMaterial) {
+                        if (nearbyBlock.getType() == targetMaterial && !Utilities.temporaryBlocks.contains(nearbyBlock)) {
                             if (nearbyBlock.getType().name().contains("LOG")) {
                                 player.getInventory().addItem(new ItemStack(targetMaterial, 1));
                                 nearbyBlock.getWorld().playSound(nearbyBlock.getLocation(), Sound.BLOCK_WOOD_BREAK, 0.3F, 2F);

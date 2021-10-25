@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -48,6 +49,9 @@ public class plumbers_sponge extends UberItem {
     public boolean activeEffect(Player player, ItemStack item) { return false; }
 
     public void doBlockEater(Block startingBlock, int amount) {
+        if (startingBlock.getType() == Material.AIR) return;
+        if (Utilities.temporaryBlocks.contains(startingBlock)) return;
+
         ArrayList<Block> blocksToCheck = new ArrayList<>();
         blocksToCheck.add(startingBlock);
         for (int i = 0; i <= amount; i++) {
@@ -61,11 +65,24 @@ public class plumbers_sponge extends UberItem {
                     Block eastBlock = block.getRelative(BlockFace.EAST);
                     Block southBlock = block.getRelative(BlockFace.SOUTH);
                     Block westBlock = block.getRelative(BlockFace.WEST);
-                    for (Block nearbyBlock : new ArrayList<Block>(Arrays.asList(upperBlock, lowerBlock, northBlock, eastBlock, southBlock, westBlock))) {
-                        if (nearbyBlock.getType() == Material.WATER) {
-                            nearbyBlock.setType(Material.AIR);
-                            nearbyBlock.getWorld().playSound(nearbyBlock.getLocation(), Sound.ENTITY_PUFFER_FISH_FLOP, 0.3F, 2F);
-                            blocksToCheck.add(nearbyBlock);
+                    for (Block nearbyBlock : new ArrayList<>(Arrays.asList(upperBlock, lowerBlock, northBlock, eastBlock, southBlock, westBlock))) {
+                        if (!Utilities.temporaryBlocks.contains(nearbyBlock)) {
+                            if (nearbyBlock.getType() == Material.SEAGRASS || nearbyBlock.getType() == Material.TALL_SEAGRASS || nearbyBlock.getType() == Material.KELP_PLANT || nearbyBlock.getType() == Material.KELP || nearbyBlock.getType() == Material.BUBBLE_COLUMN) {
+                                block.breakNaturally();
+                                nearbyBlock.setType(Material.AIR);
+                                blocksToCheck.add(nearbyBlock);
+                            }
+                            else if (nearbyBlock.getType() == Material.WATER) {
+                                nearbyBlock.setType(Material.AIR);
+                                nearbyBlock.getWorld().playSound(nearbyBlock.getLocation(), Sound.ENTITY_PUFFER_FISH_FLOP, 0.3F, 2F);
+                                blocksToCheck.add(nearbyBlock);
+                            }
+                            if (nearbyBlock.getBlockData() instanceof Waterlogged) {
+                                Waterlogged waterlogged = (Waterlogged)nearbyBlock.getBlockData();
+                                waterlogged.setWaterlogged(false);
+                                nearbyBlock.getWorld().playSound(nearbyBlock.getLocation(), Sound.ENTITY_PUFFER_FISH_FLOP, 0.3F, 2F);
+                                blocksToCheck.add(nearbyBlock);
+                            }
                         }
                     }
                 }
