@@ -259,6 +259,51 @@ public class nes extends JavaPlugin {
                 Collections.singletonList(new UberAbility("Dragon Rage", AbilityType.RIGHT_CLICK, "All Monsters and Players /newline in front of you take " + ChatColor.GREEN + "4" + ChatColor.GRAY + " damage. Hit monsters take large knockback.")),
                 null));
 
+        // AMROR SETS
+        UberItems.putUberArmorSet(cactus_armor.class, "Cactus", UberRarity.COMMON, UberItems.ArmorType.LEATHER, Color.fromRGB(0, 255, 0),
+                Collections.singletonList(new UberAbility("Deflect", AbilityType.FULL_SET_BONUS, "Rebound" + ChatColor.GREEN + " 33.3% " + ChatColor.GRAY + "of the damage you take back at your enemy.")),
+                null, null,null,null,
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR)), false, 1),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS)), false, 1),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.CACTUS)), false, 1),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.CACTUS),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR)), false, 1));
+
     }
     private void registerUberMaterials() {
         UberItems.putMaterial("enchanted_ice", new UberMaterial(Material.ICE, "Enchanted Ice",

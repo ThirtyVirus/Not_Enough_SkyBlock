@@ -204,6 +204,19 @@ public class UberEvent implements Listener {
         }
     }
 
+    @EventHandler
+    private void onPlayerHit(EntityDamageByEntityEvent event) {
+
+        if (!(event.getEntity() instanceof Player)) return;
+        Player player = (Player)event.getEntity();
+        if (!(event.getDamager() instanceof LivingEntity)) return;
+        LivingEntity entity = (LivingEntity)event.getDamager();
+
+        if (Utilities.hasFullSetBonus(player, "deflect")) {
+            entity.damage(event.getFinalDamage() * 0.3);
+        }
+    }
+
     private Arrow shootAdditionalArrow(EntityShootBowEvent event, Player player, double whatAngle) {
         Arrow centerArrow = (Arrow) event.getProjectile();
 
