@@ -179,6 +179,26 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.STICK),
                         new ItemStack(Material.AIR)), false, 1)));
 
+        UberItems.putItem("weird_tuba", new weird_tuba(Material.HOPPER, "Weird Tuba", UberRarity.UNFINISHED,
+                false, false, false,
+                Collections.singletonList(new UberAbility("Howl", AbilityType.RIGHT_CLICK, "You and 4 nearby players gain:")),
+                new UberCraftingRecipe(Arrays.asList(
+                        UberItems.getMaterial("enchanted_iron").makeItem(20),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("enchanted_iron").makeItem(20),
+                        UberItems.getMaterial("enchanted_iron").makeItem(20),
+                        UberItems.getMaterial("golden_tooth").makeItem(20),
+                        UberItems.getMaterial("enchanted_iron").makeItem(20),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("enchanted_iron").makeItem(20),
+                        new ItemStack(Material.AIR)), false, 1)));
+
+        UberItems.putItem("basket_of_seeds", new basket_of_seeds(Utilities.getSkull("http://textures.minecraft.net/texture/7a6bf916e28ccb80b4ebfacf98686ad6af7c4fb257e57a8cb78c71d19dccb2"), "Basket of Seeds", UberRarity.UNFINISHED,
+                false, false, false,
+                Arrays.asList(new UberAbility("Seed Storage", AbilityType.LEFT_CLICK, "Place seeds in the basket."),
+                new UberAbility("Farmer's Delight", AbilityType.RIGHT_CLICK, "Automatically seed a row of farmland.")),
+                null));
+
         UberItems.putItem("treecapitator", new treecapitator(Material.GOLDEN_AXE, "Treecapitator", UberRarity.EPIC,
                 false, false, false, Collections.emptyList(),
                 new UberCraftingRecipe(Arrays.asList(
@@ -361,9 +381,17 @@ public class nes extends JavaPlugin {
                 UberRarity.RARE, true, true, false, "",
                 utils.gser(UberItems.getMaterial("enchanted_quartz").makeItem(32))));
 
+        UberItems.putMaterial("enchanted_iron", new UberMaterial(Material.IRON_INGOT, "Enchanted Iron",
+                UberRarity.UNCOMMON, true, true, false, "",
+                utils.gser(Material.IRON_INGOT)));
+
+        UberItems.putMaterial("enchanted_iron_block", new UberMaterial(Material.IRON_BLOCK, "Enchanted Iron Block",
+                UberRarity.RARE, true, true, false, "",
+                utils.gser(UberItems.getMaterial("enchanted_iron").makeItem(32))));
+
         UberItems.putMaterial("enchanted_gold", new UberMaterial(Material.GOLD_INGOT, "Enchanted Gold",
                 UberRarity.UNCOMMON, true, true, false, "",
-                utils.gser(Material.QUARTZ)));
+                utils.gser(Material.GOLD_INGOT)));
 
         UberItems.putMaterial("enchanted_gold_block", new UberMaterial(Material.GOLD_BLOCK, "Enchanted Gold Block",
                 UberRarity.RARE, true, true, false, "",
@@ -380,6 +408,22 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.BLAZE_POWDER, 16),
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.BLAZE_POWDER, 16),
+                        new ItemStack(Material.AIR)), true, 1)));
+
+        UberItems.putMaterial("wolf_tooth", new UberMaterial(Material.GHAST_TEAR, "Wolf Tooth",
+                UberRarity.UNCOMMON, true, true, false, "", null));
+
+        UberItems.putMaterial("golden_tooth", new UberMaterial(Material.GOLD_NUGGET, "Golden Tooth",
+                UberRarity.RARE, true, true, false, "",
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("wolf_tooth").makeItem(32),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("wolf_tooth").makeItem(32),
+                        UberItems.getMaterial("enchanted_gold").makeItem(32),
+                        UberItems.getMaterial("wolf_tooth").makeItem(32),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("wolf_tooth").makeItem(32),
                         new ItemStack(Material.AIR)), true, 1)));
 
         UberItems.putMaterial("null_sphere", new UberMaterial(Material.FIREWORK_STAR, "Null Sphere",
