@@ -81,8 +81,9 @@ public class UberEvent implements Listener {
     @EventHandler
     private void onEntitySpawn(PlayerInteractEvent event) {
 
-        // prevent throwing vanilla egg alongside custom one
-        if (UberItems.getItem("stone_platform").compare(event.getItem())) {
+        // prevent throwing vanilla egg alongside custom ones
+        if (UberItems.getItem("stone_platform").compare(event.getItem()) ||
+                UberItems.getItem("bridge_egg").compare(event.getItem())) {
             event.setCancelled(true);
         }
     }
@@ -95,6 +96,13 @@ public class UberEvent implements Listener {
                 && UberItems.getItem("juju_shortbow").compare(event.getItem())) {
             event.getItem().setType(Material.STICK);
             Utilities.scheduleTask(() -> event.getItem().setType(Material.BOW), 2);
+        }
+
+        // don't throw vanilla experience bottle when throwing grand, titanic, or colossal experience bottles
+        if (UberItems.getItem("grand_experience_bottle").compare(event.getItem()) ||
+                UberItems.getItem("titanic_experience_bottle").compare(event.getItem()) ||
+                UberItems.getItem("colossal_experience_bottle").compare(event.getItem())) {
+            event.setCancelled(true);
         }
 
     }
@@ -174,6 +182,24 @@ public class UberEvent implements Listener {
             event.getEntity().remove();
 
         }
+    }
+
+    @EventHandler
+    private void onBottleLand(ProjectileHitEvent event) {
+        if (!(event.getEntity() instanceof ThrownExpBottle)) return;
+
+        String exp = Utilities.getEntityTag(event.getEntity(), "uberexp");
+        int experience = 0;
+        switch (exp) {
+            case "grand": experience = 3300; break;
+            case "titanic": experience = 318122; break;
+            case "colossal": experience = 607717; break;
+        }
+        if (experience != 0) {
+            ExperienceOrb orb = event.getEntity().getWorld().spawn(event.getEntity().getLocation(), ExperienceOrb.class);
+            orb.setExperience(experience);
+        }
+
     }
 
     @EventHandler

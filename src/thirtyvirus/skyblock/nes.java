@@ -64,6 +64,24 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.STONE_BRICKS, 8),
                         new ItemStack(Material.STONE_BRICKS, 8)), false, 1)));
 
+        UberItems.putItem("bridge_egg", new bridge_egg(Material.EGG, "Bridge Egg", UberRarity.COMMON,
+                true, true, false,
+                Collections.emptyList(),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.STONE),
+                        new ItemStack(Material.STONE),
+                        new ItemStack(Material.STONE),
+                        new ItemStack(Material.STONE),
+                        new ItemStack(Material.EGG, 5),
+                        new ItemStack(Material.STONE),
+                        new ItemStack(Material.STONE),
+                        new ItemStack(Material.STONE),
+                        new ItemStack(Material.STONE)), false, 1)));
+
+        UberItems.putItem("rookie_hoe", new rookie_hoe(Material.STONE_HOE, "Rookie Hoe", UberRarity.COMMON,
+                false, false, false,
+                Collections.emptyList(), null));
+
         UberItems.putItem("magical_water_bucket", new magical_water_bucket(Material.WATER_BUCKET, "Magical Water Bucket", UberRarity.COMMON,
                 false, false, false,
                 Collections.emptyList(),
@@ -83,6 +101,10 @@ public class nes extends JavaPlugin {
                 Collections.singletonList(new UberAbility("Drain", AbilityType.RIGHT_CLICK, "Instructions: 1. Place on water. 2. Drains other water. 3. Double-bill client. " + ChatColor.DARK_GRAY + "Thanks Plumber Joe!")),
                 null));
 
+        UberItems.putItem("sweet_axe", new sweet_axe(Material.IRON_AXE, "Sweet Axe", UberRarity.UNCOMMON,
+                false, false, false,
+                Collections.emptyList(), null));
+
         UberItems.putItem("grappling_hook", new grappling_hook(Material.FISHING_ROD, "Grappling Hook", UberRarity.UNCOMMON,
                 false, false, false, Collections.emptyList(),
                 new UberCraftingRecipe(Arrays.asList(
@@ -95,6 +117,53 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.STICK),
                         new ItemStack(Material.AIR),
                         UberItems.getMaterial("enchanted_string").makeItem(1)), false, 1)));
+
+        UberItems.putItem("hoe_of_great_tilling", new hoe_of_great_tilling(Material.STONE_HOE, "Hoe of Great Tilling", UberRarity.UNCOMMON,
+                false, false, false,
+                Collections.emptyList(), null));
+
+        UberItems.putItem("hoe_of_greater_tilling", new hoe_of_greater_tilling(Material.DIAMOND_HOE, "Hoe of Greater Tilling", UberRarity.RARE,
+                false, false, false,
+                Collections.emptyList(), null));
+
+        UberItems.putItem("grand_experience_bottle", new grand_experience_bottle(Material.EXPERIENCE_BOTTLE, "Grand Experience Bottle", UberRarity.UNCOMMON,
+                true, true, false, Collections.emptyList(),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("enchanted_lapis_lazuli").makeItem(1),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("enchanted_lapis_lazuli").makeItem(1),
+                        new ItemStack(Material.GLASS_BOTTLE),
+                        UberItems.getMaterial("enchanted_lapis_lazuli").makeItem(1),
+                        UberItems.getMaterial("enchanted_lapis_lazuli").makeItem(1),
+                        UberItems.getMaterial("enchanted_lapis_lazuli").makeItem(1),
+                        UberItems.getMaterial("enchanted_lapis_lazuli").makeItem(1)), false, 1)));
+
+        UberItems.putItem("titanic_experience_bottle", new titanic_experience_bottle(Material.EXPERIENCE_BOTTLE, "Titanic Experience Bottle", UberRarity.RARE,
+                true, true, false, Collections.emptyList(),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("enchanted_lapis_block").makeItem(1),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("enchanted_lapis_block").makeItem(1),
+                        new ItemStack(Material.GLASS_BOTTLE),
+                        UberItems.getMaterial("enchanted_lapis_block").makeItem(1),
+                        UberItems.getMaterial("enchanted_lapis_block").makeItem(1),
+                        UberItems.getMaterial("enchanted_lapis_block").makeItem(1),
+                        UberItems.getMaterial("enchanted_lapis_block").makeItem(1)), false, 1)));
+
+        UberItems.putItem("colossal_experience_bottle", new colossal_experience_bottle(Material.EXPERIENCE_BOTTLE, "Colossal Experience Bottle", UberRarity.EPIC,
+                true, true, false, Collections.emptyList(),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("colossal_experience_bottle_upgrade").makeItem(1),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        UberItems.getItem("titanic_experience_bottle").makeItem(1),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR)), false, 1)));
 
         UberItems.putItem("aspect_of_the_end", new aspect_of_the_end(Material.DIAMOND_SWORD, "Aspect Of The End", UberRarity.RARE,
                 false, false, false,
@@ -181,7 +250,8 @@ public class nes extends JavaPlugin {
 
         UberItems.putItem("weird_tuba", new weird_tuba(Material.HOPPER, "Weird Tuba", UberRarity.UNFINISHED,
                 false, false, false,
-                Collections.singletonList(new UberAbility("Howl", AbilityType.RIGHT_CLICK, "You and 4 nearby players gain:")),
+                Collections.singletonList(new UberAbility("Howl", AbilityType.RIGHT_CLICK, "You and 4 nearby players gain: /newline " + ChatColor.RED + "+30 Strength /newline "
+                        + ChatColor.WHITE + "+30 Speed /newline " + ChatColor.GRAY + "for " + ChatColor.GREEN + "20" + ChatColor.GRAY + " seconds. /newline " + ChatColor.DARK_GRAY + "Effect doesn't stack.", 20)),
                 new UberCraftingRecipe(Arrays.asList(
                         UberItems.getMaterial("enchanted_iron").makeItem(20),
                         new ItemStack(Material.AIR),
@@ -330,6 +400,14 @@ public class nes extends JavaPlugin {
                 UberRarity.UNCOMMON, true, true, false, "",
                 utils.gser(Material.ICE)));
 
+        UberItems.putMaterial("enchanted_lapis_lazuli", new UberMaterial(Material.LAPIS_LAZULI, "Enchanted Lapis Lazuli",
+                UberRarity.UNCOMMON, true, true, false, "",
+                utils.gser(Material.LAPIS_LAZULI)));
+
+        UberItems.putMaterial("enchanted_lapis_block", new UberMaterial(Material.LAPIS_BLOCK, "Enchanted Lapis Block",
+                UberRarity.RARE, true, true, false, "",
+                utils.gser(UberItems.getMaterial("enchanted_lapis_lazuli").makeItem(32))));
+
         UberItems.putMaterial("enchanted_rotten_flesh", new UberMaterial(Material.ROTTEN_FLESH, "Enchanted Rotten Flesh",
                 UberRarity.UNCOMMON, true, true, false, "",
                 utils.gser(Material.ROTTEN_FLESH)));
@@ -342,8 +420,13 @@ public class nes extends JavaPlugin {
                 utils.gser(Material.JUNGLE_LOG)));
 
         UberItems.putMaterial("zombie_heart", new UberMaterial(Utilities.getSkull("http://textures.minecraft.net/texture/71d7c816fc8c636d7f50a93a0ba7aaeff06c96a561645e9eb1bef391655c531"),
-                "Zombie's Heart", UberRarity.RARE, true, false, false, "",
+                "Zombie's Heart", UberRarity.RARE, false, false, false, "",
                 utils.gser(UberItems.getMaterial("enchanted_rotten_flesh").makeItem(32))));
+
+        UberItems.putMaterial("colossal_experience_bottle_upgrade", new UberMaterial(Utilities.getSkull("http://textures.minecraft.net/texture/348a7ea198ec4efd8b56bcda8aa4230039e04d1338ee98fa85897bd4f342d632"),
+                "Colossal Experience Bottle Upgrade", UberRarity.SPECIAL, false, false, false, "Craft with " + ChatColor.BLUE +
+                "Titanic /newline " + ChatColor.BLUE + "Experience Bottle" + ChatColor.GRAY + " to " + ChatColor.AQUA + "double " + ChatColor.GRAY + "the experience it contains.",
+                null));
 
         UberItems.putMaterial("enchanted_emerald", new UberMaterial(Material.EMERALD, "Enchanted Emerald", UberRarity.UNCOMMON, true, true, false, "",
                 utils.gser(Material.EMERALD)));
