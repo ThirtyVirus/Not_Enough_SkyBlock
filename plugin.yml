@@ -6,5 +6,7 @@ api-version: 1.13
 commands:
   wandoops:
     description: Restore blocks accidentally placed by the builder's wand
+  givecreativemind:
+    description: Give a player a Creative Mind with a specific name format for them and the sender, and an edition number
 
 softdepend: [UberItems]

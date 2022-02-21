@@ -1,9 +1,10 @@
 package thirtyvirus.skyblock;
 
 import org.bukkit.*;
-import org.bukkit.block.BlockState;
-import org.bukkit.entity.Player;
+import thirtyvirus.skyblock.commands.GiveCreativeMind;
 import thirtyvirus.skyblock.commands.WandOops;
+import thirtyvirus.skyblock.events.InventoryClick;
+import thirtyvirus.skyblock.events.InventoryClose;
 import thirtyvirus.skyblock.events.UberEvent;
 import thirtyvirus.skyblock.helpers.utils;
 import thirtyvirus.skyblock.items.*;
@@ -43,9 +44,12 @@ public class nes extends JavaPlugin {
     // register commands
     private void registerCommands() {
         getCommand("wandoops").setExecutor(new WandOops());
+        getCommand("givecreativemind").setExecutor(new GiveCreativeMind());
     }
     private void registerEvents() {
         getServer().getPluginManager().registerEvents(new UberEvent(), this);
+        getServer().getPluginManager().registerEvents(new InventoryClick(), this);
+        getServer().getPluginManager().registerEvents(new InventoryClose(), this);
     }
 
     private void registerUberItems() {
@@ -82,6 +86,10 @@ public class nes extends JavaPlugin {
                 false, false, false,
                 Collections.emptyList(), null));
 
+        UberItems.putItem("enchanted_bone_meal", new enchanted_bone_meal(Material.BONE_MEAL, "Enchanted Bone Meal", UberRarity.UNFINISHED,
+                true, true, false,
+                Collections.emptyList(), null));
+
         UberItems.putItem("magical_water_bucket", new magical_water_bucket(Material.WATER_BUCKET, "Magical Water Bucket", UberRarity.COMMON,
                 false, false, false,
                 Collections.emptyList(),
@@ -91,6 +99,20 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.IRON_INGOT),
                         UberItems.getMaterial("enchanted_ice").makeItem(1),
+                        new ItemStack(Material.IRON_INGOT),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.IRON_INGOT),
+                        new ItemStack(Material.AIR)), false, 1)));
+
+        UberItems.putItem("magical_lava_bucket", new magical_lava_bucket(Material.LAVA_BUCKET, "Magical Lava Bucket", UberRarity.UNCOMMON,
+                false, false, false,
+                Collections.emptyList(),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.IRON_INGOT),
+                        UberItems.getMaterial("enchanted_netherrack").makeItem(1),
                         new ItemStack(Material.IRON_INGOT),
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.IRON_INGOT),
@@ -209,6 +231,20 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.STICK),
                         new ItemStack(Material.AIR)), false, 1)));
+
+        UberItems.putItem("uncrafting_table", new uncrafting_table(Utilities.getSkull("http://textures.minecraft.net/texture/2cdc0feb7001e2c10fd5066e501b87e3d64793092b85a50c856d962f8be92c78"), "UnCrafting Table", UberRarity.EPIC,
+                false, false, false,
+                Collections.singletonList(new UberAbility("914 - Coarse", AbilityType.RIGHT_CLICK, "Dismantle items into their constituent parts without damage")),
+                new UberCraftingRecipe(Arrays.asList(
+                        UberItems.getMaterial("enchanted_oak_wood").makeItem(64),
+                        UberItems.getMaterial("enchanted_iron_block").makeItem(4),
+                        UberItems.getMaterial("enchanted_oak_wood").makeItem(64),
+                        UberItems.getMaterial("enchanted_iron_block").makeItem(4),
+                        new ItemStack(Material.CRAFTING_TABLE),
+                        UberItems.getMaterial("enchanted_iron_block").makeItem(4),
+                        UberItems.getMaterial("enchanted_oak_wood").makeItem(64),
+                        UberItems.getMaterial("enchanted_iron_block").makeItem(4),
+                        UberItems.getMaterial("enchanted_oak_wood").makeItem(64)), false, 1)));
 
         UberItems.putItem("ornate_zombie_sword", new ornate_zombie_sword(Material.GOLDEN_SWORD, "Ornate Zombie Sword", UberRarity.EPIC,
                 false, false, false,
@@ -363,6 +399,10 @@ public class nes extends JavaPlugin {
                 Collections.singletonList(new UberAbility("Dragon Rage", AbilityType.RIGHT_CLICK, "All Monsters and Players /newline in front of you take " + ChatColor.GREEN + "4" + ChatColor.GRAY + " damage. Hit monsters take large knockback.")),
                 null));
 
+        UberItems.putItem("creative_mind", new creative_mind(Material.PAINTING, "Creative Mind", UberRarity.SPECIAL,
+                false, false, false,
+                Collections.emptyList(), null));
+
         // AMROR SETS
         UberItems.putUberArmorSet(cactus_armor.class, "Cactus", UberRarity.COMMON, UberItems.ArmorType.LEATHER, Color.fromRGB(0, 255, 0),
                 Collections.singletonList(new UberAbility("Deflect", AbilityType.FULL_SET_BONUS, "Rebound" + ChatColor.GREEN + " 33.3% " + ChatColor.GRAY + "of the damage you take back at your enemy.")),
@@ -414,6 +454,10 @@ public class nes extends JavaPlugin {
                 UberRarity.UNCOMMON, true, true, false, "",
                 utils.gser(Material.ICE)));
 
+        UberItems.putMaterial("enchanted_netherrack", new UberMaterial(Material.NETHERRACK, "Enchanted Netherrack",
+                UberRarity.UNCOMMON, true, true, false, "",
+                utils.gser(Material.NETHERRACK)));
+
         UberItems.putMaterial("enchanted_lapis_lazuli", new UberMaterial(Material.LAPIS_LAZULI, "Enchanted Lapis Lazuli",
                 UberRarity.UNCOMMON, true, true, false, "",
                 utils.gser(Material.LAPIS_LAZULI)));
@@ -464,6 +508,10 @@ public class nes extends JavaPlugin {
 
         UberItems.putMaterial("healing_tissue", new UberMaterial(Material.ROTTEN_FLESH, "Healing Tissue",
                 UberRarity.RARE, false, true, false, "", null));
+
+        UberItems.putMaterial("enchanted_oak_wood", new UberMaterial(Material.OAK_LOG, "Enchanted Oak Wood",
+                UberRarity.UNCOMMON, true, true, false, "",
+                utils.gser(Material.OAK_LOG)));
 
         UberItems.putMaterial("enchanted_jungle_wood", new UberMaterial(Material.JUNGLE_LOG, "Enchanted Jungle Wood",
                 UberRarity.UNCOMMON, true, true, false, "",

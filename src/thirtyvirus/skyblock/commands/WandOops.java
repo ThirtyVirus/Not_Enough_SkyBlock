@@ -6,7 +6,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import thirtyvirus.skyblock.helpers.utils;
-import thirtyvirus.skyblock.nes;
 import thirtyvirus.uber.helpers.Utilities;
 
 public class WandOops implements CommandExecutor {
