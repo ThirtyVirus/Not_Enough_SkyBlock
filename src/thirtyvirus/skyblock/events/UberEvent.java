@@ -59,6 +59,28 @@ public class UberEvent implements Listener {
                 Vector v = new Vector(l2.getX() - l1.getX(), 1, l2.getZ() - l1.getZ());
                 player.setVelocity(v);
             }
+            else if (UberItems.getItem("hook_shot").compare(item)) {
+                UberItem uber = Utilities.getUber(item);
+
+                // repair rod each time it is used
+                Utilities.repairItem(item);
+
+                // enforce premium vs lite, item rarity perms, item specific perms
+                if (Utilities.enforcePermissions(player, uber)) return;
+
+                // enforce 1.5s cooldown on the grappling hook
+                if (Utilities.enforceCooldown(player, "grapple", 1.0, item, false)) {
+                    Utilities.warnPlayer(player, "Whow! Slow down there!");
+                    return;
+                }
+
+                Location l1 = player.getLocation();
+                Location l2 = event.getHook().getLocation();
+                Vector v = new Vector(l2.getX() - l1.getX(), 1, l2.getZ() - l1.getZ());
+                v.multiply(3);
+                v = new Vector(v.getX(), 1, v.getZ());
+                player.setVelocity(v);
+            }
         }
     }
 
@@ -210,6 +232,14 @@ public class UberEvent implements Listener {
             if (!Utilities.getEntityTag(event.getDamager(), "rebound").equals("")) {
                 event.getDamager().remove();
                 event.setCancelled(true);
+            }
+        }
+
+        // reduce fall damage when holding Hook Shot
+        if (event.getEntity() instanceof Player && event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            Player player = (Player)event.getEntity();
+            if (UberItems.getItem("hook_shot").compare(player.getInventory().getItemInMainHand())) {
+                event.setDamage(event.getDamage() * 0.5f);
             }
         }
 

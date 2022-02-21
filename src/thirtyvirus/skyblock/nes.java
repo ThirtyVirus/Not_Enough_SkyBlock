@@ -108,15 +108,29 @@ public class nes extends JavaPlugin {
         UberItems.putItem("grappling_hook", new grappling_hook(Material.FISHING_ROD, "Grappling Hook", UberRarity.UNCOMMON,
                 false, false, false, Collections.emptyList(),
                 new UberCraftingRecipe(Arrays.asList(
+                        UberItems.getMaterial("enchanted_string").makeItem(1),
+                        UberItems.getMaterial("enchanted_string").makeItem(1),
                         new ItemStack(Material.AIR),
-                        new ItemStack(Material.AIR),
-                        new ItemStack(Material.STICK),
-                        new ItemStack(Material.AIR),
-                        new ItemStack(Material.STICK),
                         UberItems.getMaterial("enchanted_string").makeItem(1),
                         new ItemStack(Material.STICK),
                         new ItemStack(Material.AIR),
-                        UberItems.getMaterial("enchanted_string").makeItem(1)), false, 1)));
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.STICK)), false, 1)));
+
+        UberItems.putItem("hook_shot", new hook_shot(Material.FISHING_ROD, "Hook Shot", UberRarity.RARE,
+                false, false, false,
+                Collections.singletonList(new UberAbility("Improved Hydraulics", AbilityType.NONE, "Take " + ChatColor.GREEN + "50%" + ChatColor.GRAY + " less fall damage when /newline holding this item.")),
+                new UberCraftingRecipe(Arrays.asList(
+                        UberItems.getMaterial("tarantula_silk").makeItem(1),
+                        UberItems.getMaterial("tarantula_silk").makeItem(1),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("tarantula_silk").makeItem(1),
+                        UberItems.getItem("grappling_hook").makeItem(1),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.STICK)), false, 1)));
 
         UberItems.putItem("hoe_of_great_tilling", new hoe_of_great_tilling(Material.STONE_HOE, "Hoe of Great Tilling", UberRarity.UNCOMMON,
                 false, false, false,
@@ -411,6 +425,42 @@ public class nes extends JavaPlugin {
         UberItems.putMaterial("enchanted_rotten_flesh", new UberMaterial(Material.ROTTEN_FLESH, "Enchanted Rotten Flesh",
                 UberRarity.UNCOMMON, true, true, false, "",
                 utils.gser(Material.ROTTEN_FLESH)));
+
+        UberItems.putMaterial("enchanted_flint", new UberMaterial(Material.FLINT, "Enchanted Flint",
+                UberRarity.UNCOMMON, true, true, false, "",
+                utils.gser(Material.FLINT)));
+
+        UberItems.putMaterial("revenant_flesh", new UberMaterial(Material.ROTTEN_FLESH, "Revenant Flesh",
+                UberRarity.UNCOMMON, true, true, false, "", null));
+
+        UberItems.putMaterial("revenant_viscera", new UberMaterial(Material.COOKED_PORKCHOP, "Revenant Viscera",
+                UberRarity.RARE, true, true, false, "",
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("revenant_flesh").makeItem(32),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("revenant_flesh").makeItem(32),
+                        UberItems.getMaterial("enchanted_string").makeItem(32),
+                        UberItems.getMaterial("revenant_flesh").makeItem(32),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("revenant_flesh").makeItem(32),
+                        new ItemStack(Material.AIR)), true, 1)));
+
+        UberItems.putMaterial("tarantula_web", new UberMaterial(Material.STRING, "Tarantula Web",
+                UberRarity.UNCOMMON, true, true, false, "", null));
+
+        UberItems.putMaterial("tarantula_silk", new UberMaterial(Material.COBWEB, "Tarantula Silk",
+                UberRarity.RARE, true, true, false, "",
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("tarantula_web").makeItem(32),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("tarantula_web").makeItem(32),
+                        UberItems.getMaterial("enchanted_flint").makeItem(32),
+                        UberItems.getMaterial("tarantula_web").makeItem(32),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("tarantula_web").makeItem(32),
+                        new ItemStack(Material.AIR)), true, 1)));
 
         UberItems.putMaterial("healing_tissue", new UberMaterial(Material.ROTTEN_FLESH, "Healing Tissue",
                 UberRarity.RARE, false, true, false, "", null));

@@ -55,7 +55,7 @@ public class bridge_egg extends UberItem {
         if (egg.isDead() || counter <= 0) return;
 
         Location old = egg.getLocation().clone();
-        Utilities.scheduleTask(()->fillBlocks(old.clone().add(-1,0,-1), old.clone().add(1,0,1), Material.STONE), 3);
+        Utilities.scheduleTask(()->fillBlocks(old.clone().add(-1,-2,-1), old.clone().add(1,-2,1), Material.STONE), 3);
         Utilities.scheduleTask(()->placeBridge(egg, counter - 1), 1);
     }
 
