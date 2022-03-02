@@ -127,6 +127,10 @@ public class nes extends JavaPlugin {
                 false, false, false,
                 Collections.emptyList(), null));
 
+        UberItems.putItem("gift_compass", new gift_compass(Material.COMPASS, "Gift Compass", UberRarity.UNFINISHED,
+                false, false, true,
+                Collections.emptyList(), null));
+
         UberItems.putItem("grappling_hook", new grappling_hook(Material.FISHING_ROD, "Grappling Hook", UberRarity.UNCOMMON,
                 false, false, false, Collections.emptyList(),
                 new UberCraftingRecipe(Arrays.asList(
@@ -232,7 +236,7 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.STICK),
                         new ItemStack(Material.AIR)), false, 1)));
 
-        UberItems.putItem("uncrafting_table", new uncrafting_table(Utilities.getSkull("http://textures.minecraft.net/texture/2cdc0feb7001e2c10fd5066e501b87e3d64793092b85a50c856d962f8be92c78"), "UnCrafting Table", UberRarity.EPIC,
+        UberItems.putItem("uncrafting_table", new uncrafting_table(Utilities.getSkull("http://textures.minecraft.net/texture/2cdc0feb7001e2c10fd5066e501b87e3d64793092b85a50c856d962f8be92c78"), "Uncrafting Table", UberRarity.EPIC,
                 false, false, false,
                 Collections.singletonList(new UberAbility("914 - Coarse", AbilityType.RIGHT_CLICK, "Dismantle items into their constituent parts without damage")),
                 new UberCraftingRecipe(Arrays.asList(

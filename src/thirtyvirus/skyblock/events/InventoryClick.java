@@ -1,13 +1,13 @@
 package thirtyvirus.skyblock.events;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
@@ -64,7 +64,9 @@ public class InventoryClick implements Listener {
         }
 
         // process clicking the uncraft item button
-        if (event.getRawSlot() == 21) uncraftItem(event);
+        if (event.getRawSlot() == 21) {
+            uncraftItem(event);
+        }
     }
 
 
@@ -121,35 +123,45 @@ public class InventoryClick implements Listener {
             event.setCancelled(true); return;
         }
 
-        // verify that the item in the 19th slot is not null
         ItemStack item = event.getInventory().getItem(19);
-        if (item == null) return;
+        boolean done = false;
+        while (!done) {
+            // verify that the item in the 19th slot is not null
+            if (item == null) return;
+            // do not loop if not a shift click
+            if (event.getClick() != ClickType.SHIFT_LEFT) done = true;
 
-        if (Utilities.isUber(item)) {
-            UberItem uberItem = Utilities.getUber(item);
-            if (uberItem.hasCraftingRecipe() && item.getAmount() >= uberItem.getCraftingRecipe().getCraftAmount()) {
-                for (int counter = 0; counter < 9; counter++) {
-                    event.getWhoClicked().getInventory().addItem(uberItem.getCraftingRecipe().get(counter));
+            // check if the item is an UberItem
+            if (Utilities.isUber(item)) {
+                UberItem uberItem = Utilities.getUber(item);
+                if (uberItem.hasCraftingRecipe() && item.getAmount() >= uberItem.getCraftingRecipe().getCraftAmount()) {
+                    for (int counter = 0; counter < 9; counter++) {
+                        Utilities.givePlayerItemSafely((Player)event.getWhoClicked(), uberItem.getCraftingRecipe().get(counter));
+                    }
+                    item.setAmount(item.getAmount() - uberItem.getCraftingRecipe().getCraftAmount());
+                    if (event.getWhoClicked() instanceof Player) {
+                        Player player = (Player)event.getWhoClicked();
+                        player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
+                    }
                 }
-                item.setAmount(item.getAmount() - uberItem.getCraftingRecipe().getCraftAmount());
-                if (event.getWhoClicked() instanceof Player) {
-                    Player player = (Player)event.getWhoClicked();
-                    player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
-                }
+                else done = true;
             }
-        }
-        else if (Utilities.isUberMaterial(item)) {
-            UberMaterial uberMaterial = Utilities.getUberMaterial(item);
-            if (uberMaterial.hasCraftingRecipe() && item.getAmount() >= uberMaterial.getCraftingRecipe().getCraftAmount()) {
-                for (int counter = 0; counter < 9; counter++) {
-                    event.getWhoClicked().getInventory().addItem(uberMaterial.getCraftingRecipe().get(counter));
+            // check if the item is an UberMaterial
+            else if (Utilities.isUberMaterial(item)) {
+                UberMaterial uberMaterial = Utilities.getUberMaterial(item);
+                if (uberMaterial.hasCraftingRecipe() && item.getAmount() >= uberMaterial.getCraftingRecipe().getCraftAmount()) {
+                    for (int counter = 0; counter < 9; counter++) {
+                        Utilities.givePlayerItemSafely((Player)event.getWhoClicked(), uberMaterial.getCraftingRecipe().get(counter));
+                    }
+                    item.setAmount(item.getAmount() - uberMaterial.getCraftingRecipe().getCraftAmount());
+                    if (event.getWhoClicked() instanceof Player) {
+                        Player player = (Player)event.getWhoClicked();
+                        player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
+                    }
                 }
-                item.setAmount(item.getAmount() - uberMaterial.getCraftingRecipe().getCraftAmount());
-                if (event.getWhoClicked() instanceof Player) {
-                    Player player = (Player)event.getWhoClicked();
-                    player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
-                }
+                else done = true;
             }
+            else done = true;
         }
 
         // update inventory on a 1 tick delay as to prevent visual bugs clientside

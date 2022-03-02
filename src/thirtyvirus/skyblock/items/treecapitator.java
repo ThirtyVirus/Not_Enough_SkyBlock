@@ -88,14 +88,14 @@ public class treecapitator extends UberItem {
                     for (Block nearbyBlock : new ArrayList<Block>(Arrays.asList(upperBlock, lowerBlock, northBlock, eastBlock, southBlock, westBlock))) {
                         if (nearbyBlock.getType() == targetMaterial && !Utilities.temporaryBlocks.contains(nearbyBlock)) {
                             if (nearbyBlock.getType().name().contains("LOG")) {
-                                player.getInventory().addItem(new ItemStack(targetMaterial, 1));
+                                Utilities.givePlayerItemSafely(player, new ItemStack(targetMaterial, 1));
                                 nearbyBlock.getWorld().playSound(nearbyBlock.getLocation(), Sound.BLOCK_WOOD_BREAK, 0.3F, 2F);
                             }
                             if (nearbyBlock.getType().name().contains("LEAVES")) {
                                 Random rand = new Random();
                                 int n = rand.nextInt(200);
-                                if (n > 189) player.getInventory().addItem(new ItemStack(Material.OAK_SAPLING, 1));
-                                if (n < 6) player.getInventory().addItem(new ItemStack(Material.APPLE, 1));
+                                if (n > 189) Utilities.givePlayerItemSafely(player, new ItemStack(Material.OAK_SAPLING, 1));
+                                if (n < 6) Utilities.givePlayerItemSafely(player, new ItemStack(Material.APPLE, 1));
                                 nearbyBlock.getWorld().playSound(nearbyBlock.getLocation(), Sound.BLOCK_GRASS_BREAK, 0.3F, 2F);
                             }
                             nearbyBlock.setType(Material.AIR);

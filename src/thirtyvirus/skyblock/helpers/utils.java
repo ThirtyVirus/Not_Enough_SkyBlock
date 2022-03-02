@@ -68,7 +68,7 @@ public final class utils {
         Utilities.informPlayer(player, "Builder's Wand use undone, removed " + (blocks.size() - 1) + " blocks");
 
         if (player.getGameMode() == GameMode.SURVIVAL)
-            player.getInventory().addItem(new ItemStack(returnPoint.getType(), blocks.size() - 1));
+            Utilities.givePlayerItemSafely(player, new ItemStack(returnPoint.getType(), blocks.size() - 1));
     }
 
     // enforces an ability cooldown, but with multiple charges

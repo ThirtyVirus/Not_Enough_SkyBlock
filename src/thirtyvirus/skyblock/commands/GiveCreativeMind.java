@@ -36,7 +36,7 @@ public class GiveCreativeMind implements CommandExecutor {
             Utilities.storeIntInItem(creativeMind, edition, "edition");
             UberItems.getItem("creative_mind").updateLore(creativeMind);
 
-            if (recipient != null) recipient.getInventory().addItem(creativeMind);
+            if (recipient != null) Utilities.givePlayerItemSafely(recipient, creativeMind);
 
         } catch(Exception e) {
             Utilities.warnPlayer(sender, Arrays.asList(
