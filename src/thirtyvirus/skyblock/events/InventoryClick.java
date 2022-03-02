@@ -122,6 +122,10 @@ public class InventoryClick implements Listener {
         if (event.getCurrentItem() == uncrafting_table.UNCRAFTING_SLOT_ITEM) {
             event.setCancelled(true); return;
         }
+        // enforce having open slots in the inventory
+        if (event.getWhoClicked().getInventory().firstEmpty() == -1) {
+            event.setCancelled(true); return;
+        }
 
         ItemStack item = event.getInventory().getItem(19);
         boolean done = false;
@@ -130,6 +134,8 @@ public class InventoryClick implements Listener {
             if (item == null) return;
             // do not loop if not a shift click
             if (event.getClick() != ClickType.SHIFT_LEFT) done = true;
+            // do not loop if inventory full, stop uncrafting
+            if (event.getWhoClicked().getInventory().firstEmpty() == -1) { done = true; return; }
 
             // check if the item is an UberItem
             if (Utilities.isUber(item)) {

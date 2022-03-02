@@ -131,6 +131,10 @@ public class nes extends JavaPlugin {
                 false, false, true,
                 Collections.emptyList(), null));
 
+        UberItems.putItem("fairy_soul_compass", new fairy_soul_compass(Material.COMPASS, "Fairy Soul Compass", UberRarity.UNFINISHED,
+                false, false, true,
+                Collections.emptyList(), null));
+
         UberItems.putItem("grappling_hook", new grappling_hook(Material.FISHING_ROD, "Grappling Hook", UberRarity.UNCOMMON,
                 false, false, false, Collections.emptyList(),
                 new UberCraftingRecipe(Arrays.asList(
@@ -164,6 +168,14 @@ public class nes extends JavaPlugin {
 
         UberItems.putItem("hoe_of_greater_tilling", new hoe_of_greater_tilling(Material.DIAMOND_HOE, "Hoe of Greater Tilling", UberRarity.RARE,
                 false, false, false,
+                Collections.emptyList(), null));
+
+        UberItems.putItem("frosty_the_snow_cannon", new frosty_the_snow_cannon(Utilities.getSkull("http://textures.minecraft.net/texture/1fff9d348ebcda66747192554c378ad7f12fe4f6d79cbc62d4dfb666971e2bf"),
+                "Frosty the Snow Cannon", UberRarity.RARE, false, false, false,
+                Collections.emptyList(), null));
+
+        UberItems.putItem("frosty_the_snow_blaster", new frosty_the_snow_blaster(Utilities.getSkull("http://textures.minecraft.net/texture/e25e333b25c5d5b243369516f5888bca38c1aa0e1d98092738187a74406b54a"),
+                "Frosty the Snow Blaster", UberRarity.EPIC, false, false, false,
                 Collections.emptyList(), null));
 
         UberItems.putItem("grand_experience_bottle", new grand_experience_bottle(Material.EXPERIENCE_BOTTLE, "Grand Experience Bottle", UberRarity.UNCOMMON,
@@ -203,6 +215,19 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR)), false, 1)));
+
+        UberItems.putItem("sheep_plushie", new sheep_plushie(Utilities.getSkull("http://textures.minecraft.net/texture/32b6adb3b6e83c074e7d0ebaff14d6acbbabeb06694d6ee38cc8dd1bf6630bc6"), "Sheep Plushie", UberRarity.RARE,
+                false, false, false, Collections.emptyList(),
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("enchanted_wool").makeItem(16),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("enchanted_wool").makeItem(16),
+                        UberItems.getMaterial("enchanted_slime_block").makeItem(64),
+                        UberItems.getMaterial("enchanted_wool").makeItem(16),
+                        new ItemStack(Material.AIR),
+                        UberItems.getMaterial("enchanted_wool").makeItem(16),
                         new ItemStack(Material.AIR)), false, 1)));
 
         UberItems.putItem("aspect_of_the_end", new aspect_of_the_end(Material.DIAMOND_SWORD, "Aspect Of The End", UberRarity.RARE,
@@ -407,6 +432,14 @@ public class nes extends JavaPlugin {
                 false, false, false,
                 Collections.emptyList(), null));
 
+        UberItems.putItem("game_breaker", new game_breaker(Material.TNT, "Game Breaker", UberRarity.SPECIAL,
+                false, false, false,
+                Collections.emptyList(), null));
+
+        UberItems.putItem("quality_map", new quality_map(Material.MAP, "Quality Map", UberRarity.SPECIAL,
+                false, false, false,
+                Collections.emptyList(), null));
+
         // AMROR SETS
         UberItems.putUberArmorSet(cactus_armor.class, "Cactus", UberRarity.COMMON, UberItems.ArmorType.LEATHER, Color.fromRGB(0, 255, 0),
                 Collections.singletonList(new UberAbility("Deflect", AbilityType.FULL_SET_BONUS, "Rebound" + ChatColor.GREEN + " 33.3% " + ChatColor.GRAY + "of the damage you take back at your enemy.")),
@@ -457,6 +490,10 @@ public class nes extends JavaPlugin {
         UberItems.putMaterial("enchanted_ice", new UberMaterial(Material.ICE, "Enchanted Ice",
                 UberRarity.UNCOMMON, true, true, false, "",
                 utils.gser(Material.ICE)));
+
+        UberItems.putMaterial("enchanted_wool", new UberMaterial(Material.WHITE_WOOL, "Enchanted Wool",
+                UberRarity.UNCOMMON, true, true, false, "",
+                utils.gser(Material.WHITE_WOOL)));
 
         UberItems.putMaterial("enchanted_netherrack", new UberMaterial(Material.NETHERRACK, "Enchanted Netherrack",
                 UberRarity.UNCOMMON, true, true, false, "",
@@ -540,6 +577,14 @@ public class nes extends JavaPlugin {
         UberItems.putMaterial("enchanted_bone", new UberMaterial(Material.BONE, "Enchanted Bone",
                 UberRarity.UNCOMMON, true, true, false, "",
                 utils.gser(Material.BONE)));
+
+        UberItems.putMaterial("enchanted_slimeball", new UberMaterial(Material.SLIME_BALL, "Enchanted Slimeball",
+                UberRarity.UNCOMMON, true, true, false, "",
+                utils.gser(Material.SLIME_BALL)));
+
+        UberItems.putMaterial("enchanted_slime_block", new UberMaterial(Material.SLIME_BLOCK, "Enchanted Slime Block",
+                UberRarity.RARE, true, true, false, "",
+                utils.gser(UberItems.getMaterial("enchanted_slimeball").makeItem(32))));
 
         UberItems.putMaterial("enchanted_string", new UberMaterial(Material.STRING, "Enchanted String",
                 UberRarity.UNCOMMON, true, true, false, "",

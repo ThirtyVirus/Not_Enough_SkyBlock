@@ -84,7 +84,7 @@ public class stone_platform extends UberItem {
         for (x = minX; x <= maxX; x++)
             for (y = minY; y <= maxY; y++)
                 for (z = minZ; z <= maxZ; z++)
-                    if (!l1.getWorld().getBlockAt(l1).getType().isSolid())
+                    if (!l1.getWorld().getBlockAt(x, y, z).getType().isSolid())
                         l1.getWorld().getBlockAt(x, y, z).setType(fillMaterial);
 
     }

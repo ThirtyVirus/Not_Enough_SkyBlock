@@ -10,10 +10,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -85,6 +82,62 @@ public class UberEvent implements Listener {
     }
 
     @EventHandler
+    private void onPlayerPickupItem(EntityPickupItemEvent event) {
+        if (!(event.getEntity() instanceof Player)) return;
+        Player player = (Player)event.getEntity();
+        ItemStack item = event.getItem().getItemStack();
+
+        if (item.getType() != Material.SNOWBALL) return;
+        if (Utilities.isUber(item) || Utilities.isUberMaterial(item)) return;
+
+        // process picking up snowballs to fill frosty the snow cannon
+        ItemStack cannon = Utilities.searchFor(player.getInventory(), UberItems.getItem("frosty_the_snow_cannon"));
+        if (cannon != null) {
+            int ammo = Utilities.getIntFromItem(cannon, "ammo");
+            if (ammo != 1000) {
+                if (ammo + item.getAmount() <= 1000) {
+                    ammo += item.getAmount();
+                }
+                else {
+                    int leftover = 1000 - ammo;
+                    item.setAmount(item.getAmount() - leftover);
+                    ammo = 1000;
+                    player.getInventory().addItem(item.clone());
+                }
+                event.getItem().remove();
+                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
+                event.setCancelled(true);
+                Utilities.storeIntInItem(cannon, ammo, "ammo");
+                UberItems.getItem("frosty_the_snow_cannon").updateLore(cannon);
+                return;
+            }
+        }
+
+        // process picking up snowballs to fill frosty the snow blaster
+        ItemStack blaster = Utilities.searchFor(player.getInventory(), UberItems.getItem("frosty_the_snow_blaster"));
+        if (blaster != null) {
+            int ammo = Utilities.getIntFromItem(blaster, "ammo");
+            if (ammo != 2000) {
+                if (ammo + item.getAmount() <= 2000) {
+                    ammo += item.getAmount();
+                }
+                else {
+                    int leftover = 2000 - ammo;
+                    item.setAmount(item.getAmount() - leftover);
+                    ammo = 2000;
+                    player.getInventory().addItem(item.clone());
+                }
+                event.getItem().remove();
+                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1, 1);
+                event.setCancelled(true);
+                Utilities.storeIntInItem(blaster, ammo, "ammo");
+                UberItems.getItem("frosty_the_snow_blaster").updateLore(blaster);
+            }
+        }
+
+    }
+
+    @EventHandler
     private void onHookHitEntity(ProjectileHitEvent event) {
         if (!(event.getEntity() instanceof FishHook)) return;
         FishHook hook = (FishHook)event.getEntity();
@@ -124,6 +177,11 @@ public class UberEvent implements Listener {
         if (UberItems.getItem("grand_experience_bottle").compare(event.getItem()) ||
                 UberItems.getItem("titanic_experience_bottle").compare(event.getItem()) ||
                 UberItems.getItem("colossal_experience_bottle").compare(event.getItem())) {
+            event.setCancelled(true);
+        }
+
+        // don't create a filled map from Quality Map
+        if (UberItems.getItem("quality_map").compare(event.getItem())) {
             event.setCancelled(true);
         }
 
@@ -241,6 +299,13 @@ public class UberEvent implements Listener {
             if (UberItems.getItem("hook_shot").compare(player.getInventory().getItemInMainHand())) {
                 event.setDamage(event.getDamage() * 0.5f);
             }
+        }
+
+        // cancel knockback if player is holding a Sheep Plushie
+        if (event.getEntity() instanceof Player && Utilities.searchFor(((Player) event.getEntity()).getInventory(), UberItems.getItem("sheep_plushie")) != null) {
+            Player player = (Player)event.getEntity();
+            player.damage(event.getFinalDamage());
+            event.setCancelled(true);
         }
 
         if (!(event.getDamager() instanceof Player)) return;

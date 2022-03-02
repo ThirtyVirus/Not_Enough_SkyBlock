@@ -1,5 +1,6 @@
 package thirtyvirus.skyblock.items;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -75,7 +76,7 @@ public class bridge_egg extends UberItem {
         for (x = minX; x <= maxX; x++)
             for (y = minY; y <= maxY; y++)
                 for (z = minZ; z <= maxZ; z++)
-                    if (!l1.getWorld().getBlockAt(l1).getType().isSolid())
+                    if (!l1.getWorld().getBlockAt(x, y, z).getType().isSolid())
                         l1.getWorld().getBlockAt(x, y, z).setType(fillMaterial);
 
     }

@@ -54,9 +54,6 @@ public class gift_compass extends UberItem {
     public boolean clickedInInventoryAction(Player player, InventoryClickEvent event, ItemStack item, ItemStack addition) { return false; }
     public boolean activeEffect(Player player, ItemStack item) {
 
-        // TODO check the skin of the head
-
-
         Collection<Chunk> chunks = getNearbyChunks(player.getLocation().getChunk(), 5);
         List<BlockState> entities = new ArrayList<>();
         for (Chunk chunk : chunks) entities.addAll(Arrays.asList(chunk.getTileEntities()));
@@ -66,16 +63,18 @@ public class gift_compass extends UberItem {
             if (state.getBlock().getType() != Material.PLAYER_HEAD) continue;
             if (closest == null || player.getLocation().distance(state.getBlock().getLocation()) < player.getLocation().distance(closest.getLocation())) {
 
-            //if (isSkullCorrect(state.getBlock(), "http://textures.minecraft.net/texture/a5c6944593820d13d7d47db2abcfcbf683bb74a07e1a982db9f32e0a8b5dc466"))
-            closest = state.getBlock();
+                if (isSkullCorrect(state.getBlock(), "http://textures.minecraft.net/texture/a5c6944593820d13d7d47db2abcfcbf683bb74a07e1a982db9f32e0a8b5dc466"))
+                    closest = state.getBlock();
             }
         }
         if (closest != null) player.setCompassTarget(closest.getLocation());
+        else player.setCompassTarget(player.getLocation());
 
         return false;
     }
 
-//    public boolean isSkullCorrect(Block b, String skullTexture){
+    private boolean isSkullCorrect(Block b, String skullTexture) {
+        // TODO actually implement this (needs NMS?)
 //
 //        Skull skull = (Skull) b.getState();
 //        TileEntitySkull skullTile = (TileEntitySkull) ((CraftWorld)skull.getWorld()).getHandle().getTileEntity(new BlockPosition(skull.getX(), skull.getY(), skull.getZ()));
@@ -94,9 +93,10 @@ public class gift_compass extends UberItem {
 //            return true;
 //        }
 //        return false;
-//    }
+        return true;
+    }
 
-    public static Collection<Chunk> getNearbyChunks(Chunk origin, int radius) {
+    private static Collection<Chunk> getNearbyChunks(Chunk origin, int radius) {
         World world = origin.getWorld();
 
         int length = (radius * 2) + 1;
