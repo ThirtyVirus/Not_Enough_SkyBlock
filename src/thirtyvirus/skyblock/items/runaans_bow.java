@@ -18,8 +18,8 @@ import java.util.List;
 
 public class runaans_bow extends UberItem {
 
-    public runaans_bow(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
-        super(material, name, rarity, stackable, oneTimeUse, hasActiveEffect, abilities, craftingRecipe);
+    public runaans_bow(Material material, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe, String raritySuffix) {
+        super(material, name, rarity, stackable, oneTimeUse, hasActiveEffect, abilities, craftingRecipe, raritySuffix);
     }
     public void onItemStackCreate(ItemStack item) { }
     public void getSpecificLorePrefix(List<String> lore, ItemStack item) { }

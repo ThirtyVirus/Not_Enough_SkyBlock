@@ -18,8 +18,8 @@ import java.util.List;
 
 public class sheep_plushie extends UberItem {
 
-    public sheep_plushie(ItemStack itemStack, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe) {
-        super(itemStack, name, rarity, stackable, oneTimeUse, hasActiveEffect, abilities, craftingRecipe);
+    public sheep_plushie(ItemStack itemStack, String name, UberRarity rarity, boolean stackable, boolean oneTimeUse, boolean hasActiveEffect, List<UberAbility> abilities, UberCraftingRecipe craftingRecipe, String raritySuffix) {
+        super(itemStack, name, rarity, stackable, oneTimeUse, hasActiveEffect, abilities, craftingRecipe, raritySuffix);
     }
     public void onItemStackCreate(ItemStack item) { }
     public void getSpecificLorePrefix(List<String> lore, ItemStack item) {

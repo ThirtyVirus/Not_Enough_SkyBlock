@@ -1,9 +1,6 @@
 package thirtyvirus.skyblock.items;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Entity;
@@ -14,6 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import thirtyvirus.uber.UberItem;
+import thirtyvirus.uber.UberItems;
 import thirtyvirus.uber.helpers.UberAbility;
 import thirtyvirus.uber.helpers.UberCraftingRecipe;
 import thirtyvirus.uber.helpers.UberRarity;
@@ -35,7 +33,11 @@ public class fairy_soul_compass extends UberItem {
     public void getSpecificLoreSuffix(List<String> lore, ItemStack item) { }
     public boolean leftClickAirAction(Player player, ItemStack item) {
         // TODO remove this after done testing
-        Utilities.givePlayerItemSafely(player, Utilities.getSkull("http://textures.minecraft.net/texture/b96923ad247310007f6ae5d326d847ad53864cf16c3565a181dc8e6b20be2387"));
+        //Utilities.givePlayerItemSafely(player, Utilities.getSkull("http://textures.minecraft.net/texture/b96923ad247310007f6ae5d326d847ad53864cf16c3565a181dc8e6b20be2387"));
+
+        int uuid1 = UberItems.getMaterial("enchanted_rotten_flesh").getUUID();
+        int uuid2 = UberItems.getMaterial("healing_tissue").getUUID();
+        Bukkit.getLogger().info(uuid1 + " " + uuid2);
 
         return false;
     }

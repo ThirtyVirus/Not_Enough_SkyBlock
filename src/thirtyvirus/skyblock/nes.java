@@ -84,7 +84,7 @@ public class nes extends JavaPlugin {
 
         UberItems.putItem("rookie_hoe", new rookie_hoe(Material.STONE_HOE, "Rookie Hoe", UberRarity.COMMON,
                 false, false, false,
-                Collections.emptyList(), null));
+                Collections.emptyList(), null, "HOE"));
 
         UberItems.putItem("enchanted_bone_meal", new enchanted_bone_meal(Material.BONE_MEAL, "Enchanted Bone Meal", UberRarity.UNFINISHED,
                 true, true, false,
@@ -125,7 +125,7 @@ public class nes extends JavaPlugin {
 
         UberItems.putItem("sweet_axe", new sweet_axe(Material.IRON_AXE, "Sweet Axe", UberRarity.UNCOMMON,
                 false, false, false,
-                Collections.emptyList(), null));
+                Collections.emptyList(), null, "AXE"));
 
         UberItems.putItem("gift_compass", new gift_compass(Material.COMPASS, "Gift Compass", UberRarity.UNFINISHED,
                 false, false, true,
@@ -164,11 +164,11 @@ public class nes extends JavaPlugin {
 
         UberItems.putItem("hoe_of_great_tilling", new hoe_of_great_tilling(Material.STONE_HOE, "Hoe of Great Tilling", UberRarity.UNCOMMON,
                 false, false, false,
-                Collections.emptyList(), null));
+                Collections.emptyList(), null, "HOE"));
 
         UberItems.putItem("hoe_of_greater_tilling", new hoe_of_greater_tilling(Material.DIAMOND_HOE, "Hoe of Greater Tilling", UberRarity.RARE,
                 false, false, false,
-                Collections.emptyList(), null));
+                Collections.emptyList(), null, "HOE"));
 
         UberItems.putItem("frosty_the_snow_cannon", new frosty_the_snow_cannon(Utilities.getSkull("http://textures.minecraft.net/texture/1fff9d348ebcda66747192554c378ad7f12fe4f6d79cbc62d4dfb666971e2bf"),
                 "Frosty the Snow Cannon", UberRarity.RARE, false, false, false,
@@ -228,7 +228,7 @@ public class nes extends JavaPlugin {
                         UberItems.getMaterial("enchanted_wool").makeItem(16),
                         new ItemStack(Material.AIR),
                         UberItems.getMaterial("enchanted_wool").makeItem(16),
-                        new ItemStack(Material.AIR)), false, 1)));
+                        new ItemStack(Material.AIR)), false, 1), "ACCESSORY"));
 
         UberItems.putItem("aspect_of_the_end", new aspect_of_the_end(Material.DIAMOND_SWORD, "Aspect Of The End", UberRarity.RARE,
                 false, false, false,
@@ -242,7 +242,7 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.AIR),
                         UberItems.getMaterial("enchanted_diamond").makeItem(1),
-                        new ItemStack(Material.AIR)), false, 1)));
+                        new ItemStack(Material.AIR)), false, 1), "SWORD"));
 
         UberItems.putItem("zombie_sword", new zombie_sword(Material.IRON_SWORD, "Zombie Sword", UberRarity.RARE,
                 false, false, false,
@@ -259,7 +259,7 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.STICK),
-                        new ItemStack(Material.AIR)), false, 1)));
+                        new ItemStack(Material.AIR)), false, 1), "SWORD"));
 
         UberItems.putItem("uncrafting_table", new uncrafting_table(Utilities.getSkull("http://textures.minecraft.net/texture/2cdc0feb7001e2c10fd5066e501b87e3d64793092b85a50c856d962f8be92c78"), "Uncrafting Table", UberRarity.EPIC,
                 false, false, false,
@@ -290,7 +290,7 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.AIR),
                         UberItems.getItem("zombie_sword").makeItem(1),
-                        new ItemStack(Material.AIR)), false, 1)));
+                        new ItemStack(Material.AIR)), false, 1), "SWORD"));
 
         UberItems.putItem("florid_zombie_sword", new florid_zombie_sword(Material.GOLDEN_SWORD, "Florid Zombie Sword", UberRarity.LEGENDARY,
                 false, false, false,
@@ -307,12 +307,12 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.AIR),
                         UberItems.getItem("ornate_zombie_sword").makeItem(1),
-                        new ItemStack(Material.AIR)), false, 1)));
+                        new ItemStack(Material.AIR)), false, 1), "SWORD"));
 
         UberItems.putItem("ember_rod", new ember_rod(Material.BLAZE_ROD, "Ember Rod", UberRarity.EPIC,
                 false, false, false,
                 Collections.singletonList(new UberAbility("Fire Blast!", AbilityType.RIGHT_CLICK, "Shoot 3 FireBalls in rapid succession in front of you!", 30)),
-                null));
+                null, "SWORD"));
 
         UberItems.putItem("jungle_axe", new jungle_axe(Material.WOODEN_AXE, "Jungle Axe", UberRarity.UNCOMMON,
                 false, false, false, Collections.emptyList(),
@@ -325,7 +325,7 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.STICK),
-                        new ItemStack(Material.AIR)), false, 1)));
+                        new ItemStack(Material.AIR)), false, 1), "AXE"));
 
         UberItems.putItem("weird_tuba", new weird_tuba(Material.HOPPER, "Weird Tuba", UberRarity.UNFINISHED,
                 false, false, false,
@@ -359,13 +359,13 @@ public class nes extends JavaPlugin {
                         UberItems.getMaterial("enchanted_obsidian").makeItem(64),
                         UberItems.getMaterial("enchanted_obsidian").makeItem(64),
                         UberItems.getMaterial("enchanted_obsidian").makeItem(64),
-                        UberItems.getMaterial("enchanted_obsidian").makeItem(64)), false, 1)));
+                        UberItems.getMaterial("enchanted_obsidian").makeItem(64)), false, 1), "AXE"));
 
         UberItems.putItem("stonk", new stonk(Material.GOLDEN_PICKAXE, "Stonk", UberRarity.EPIC,
                 false, false, false,
                 Collections.singletonList(new UberAbility("Mining Speed Boost", AbilityType.RIGHT_CLICK, "Grants " +
                         ChatColor.GREEN + "Efficiency 10" + ChatColor.GRAY + " for " + ChatColor.GREEN + "20s" + ChatColor.GRAY + ". " + ChatColor.DARK_GRAY + "Cooldown: " + ChatColor.GREEN + "120s")),
-                null));
+                null, "PICKAXE"));
 
         UberItems.putItem("juju_shortbow", new juju_shortbow(Material.BOW, "Juju Shortbow", UberRarity.EPIC,
                 false, false, false,
@@ -379,7 +379,7 @@ public class nes extends JavaPlugin {
                         UberItems.getMaterial("enchanted_string").makeItem(64),
                         new ItemStack(Material.AIR),
                         UberItems.getMaterial("enchanted_quartz_block").makeItem(32),
-                        UberItems.getMaterial("enchanted_string").makeItem(64)), false, 1)));
+                        UberItems.getMaterial("enchanted_string").makeItem(64)), false, 1), "BOW"));
 
         UberItems.putItem("emerald_blade", new emerald_blade(Material.EMERALD, "Emerald Blade", UberRarity.EPIC,
                 false, false, true, Collections.emptyList(),
@@ -392,11 +392,11 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.AIR),
                         UberItems.getMaterial("enchanted_emerald_block").makeItem(1),
-                        new ItemStack(Material.AIR)), false, 1)));
+                        new ItemStack(Material.AIR)), false, 1), "SWORD"));
 
         UberItems.putItem("phantom_rod", new phantom_rod(Material.FISHING_ROD, "Phantom Rod", UberRarity.LEGENDARY,
                 false, false, true,
-                Collections.singletonList(new UberAbility("Phantom Impel", AbilityType.LEFT_CLICK, "Terrify hooked enemies pushing them away and dealing massive damage")), null));
+                Collections.singletonList(new UberAbility("Phantom Impel", AbilityType.LEFT_CLICK, "Terrify hooked enemies pushing them away and dealing massive damage")), null, "FISHING WEAPON"));
 
         UberItems.putItem("builders_wand", new builders_wand(Material.BLAZE_ROD, "Builder's Wand", UberRarity.LEGENDARY,
                 false, false, true,
@@ -417,16 +417,16 @@ public class nes extends JavaPlugin {
                         UberItems.getMaterial("enchanted_string").makeItem(64),
                         new ItemStack(Material.AIR),
                         UberItems.getMaterial("enchanted_bone").makeItem(64),
-                        UberItems.getMaterial("enchanted_string").makeItem(64)), false, 1)));
+                        UberItems.getMaterial("enchanted_string").makeItem(64)), false, 1), "BOW"));
 
         UberItems.putItem("souls_rebound", new souls_rebound(Material.BOW, "Souls Rebound", UberRarity.EPIC,
                 false, false, false,
-                Collections.emptyList(), null));
+                Collections.emptyList(), null, "BOW"));
 
         UberItems.putItem("aspect_of_the_dragons", new aspect_of_the_dragons(Material.DIAMOND_SWORD, "Aspect of the Dragons", UberRarity.LEGENDARY,
                 false, false, false,
                 Collections.singletonList(new UberAbility("Dragon Rage", AbilityType.RIGHT_CLICK, "All Monsters and Players /newline in front of you take " + ChatColor.GREEN + "4" + ChatColor.GRAY + " damage. Hit monsters take large knockback.")),
-                null));
+                null, "SWORD"));
 
         UberItems.putItem("creative_mind", new creative_mind(Material.PAINTING, "Creative Mind", UberRarity.SPECIAL,
                 false, false, false,
@@ -639,6 +639,19 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.AIR),
                         new ItemStack(Material.BLAZE_POWDER, 16),
                         new ItemStack(Material.AIR)), true, 1)));
+
+        UberItems.putMaterial("enchanted_egg", new UberMaterial(Material.EGG, "Enchanted Egg",
+                UberRarity.RARE, true, true, false, "This item can be used as a minion upgrade for chicken minions. Guarantees that each chicken will drop an egg after they spawn. /newline Can also be used to craft low-rarity pets.",
+                new UberCraftingRecipe(Arrays.asList(
+                        new ItemStack(Material.EGG, 16),
+                        new ItemStack(Material.EGG, 16),
+                        new ItemStack(Material.EGG, 16),
+                        new ItemStack(Material.EGG, 16),
+                        new ItemStack(Material.EGG, 16),
+                        new ItemStack(Material.EGG, 16),
+                        new ItemStack(Material.EGG, 16),
+                        new ItemStack(Material.EGG, 16),
+                        new ItemStack(Material.EGG, 16)), true, 1)));
 
         UberItems.putMaterial("wolf_tooth", new UberMaterial(Material.GHAST_TEAR, "Wolf Tooth",
                 UberRarity.UNCOMMON, true, true, false, "", null));
