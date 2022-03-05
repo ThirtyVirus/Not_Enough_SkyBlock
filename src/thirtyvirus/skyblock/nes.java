@@ -86,7 +86,7 @@ public class nes extends JavaPlugin {
                 false, false, false,
                 Collections.emptyList(), null, "HOE"));
 
-        UberItems.putItem("enchanted_bone_meal", new enchanted_bone_meal(Material.BONE_MEAL, "Enchanted Bone Meal", UberRarity.UNFINISHED,
+        UberItems.putItem("enchanted_bone_meal", new enchanted_bone_meal(Material.BONE_MEAL, "Enchanted Bone Meal", UberRarity.COMMON,
                 true, true, false,
                 Collections.emptyList(), null));
 
