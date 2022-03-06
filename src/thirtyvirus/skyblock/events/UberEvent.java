@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -335,6 +336,19 @@ public class UberEvent implements Listener {
 
         if (Utilities.hasFullSetBonus(player, "deflect")) {
             entity.damage(event.getFinalDamage() * 0.3);
+        }
+    }
+
+    @EventHandler
+    private void onPlayerDropItem(PlayerDropItemEvent event) {
+
+        // don't drop a kloonboat
+        ItemStack item = event.getItemDrop().getItemStack();
+        if (UberItems.getItem("kloonboat").compare(item)) {
+            event.getItemDrop().remove();
+            Utilities.scheduleTask(()-> event.getPlayer().getInventory().addItem(item.clone()), 1);
+            event.getPlayer().getWorld().setStorm(true);
+            event.getPlayer().getWorld().setWeatherDuration(20*60);
         }
     }
 

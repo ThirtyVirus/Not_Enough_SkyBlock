@@ -8,5 +8,9 @@ commands:
     description: Restore blocks accidentally placed by the builder's wand
   givecreativemind:
     description: Give a player a Creative Mind with a specific name format for them and the sender, and an edition number
+  giveancientelevator:
+    description: Give a player an Ancient Elevator with a specific name format for them and the sender, an edition number, and a description
+  givekloonboat:
+    description: Give a player a Kloonboat with a specific name format for them and the sender, and an edition number
 
 softdepend: [UberItems]

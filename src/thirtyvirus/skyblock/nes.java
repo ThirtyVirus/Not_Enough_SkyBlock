@@ -1,7 +1,9 @@
 package thirtyvirus.skyblock;
 
 import org.bukkit.*;
+import thirtyvirus.skyblock.commands.GiveAncientElevator;
 import thirtyvirus.skyblock.commands.GiveCreativeMind;
+import thirtyvirus.skyblock.commands.GiveKloonboat;
 import thirtyvirus.skyblock.commands.WandOops;
 import thirtyvirus.skyblock.events.InventoryClick;
 import thirtyvirus.skyblock.events.InventoryClose;
@@ -45,6 +47,8 @@ public class nes extends JavaPlugin {
     private void registerCommands() {
         getCommand("wandoops").setExecutor(new WandOops());
         getCommand("givecreativemind").setExecutor(new GiveCreativeMind());
+        getCommand("giveancientelevator").setExecutor(new GiveAncientElevator());
+        getCommand("givekloonboat").setExecutor(new GiveKloonboat());
     }
     private void registerEvents() {
         getServer().getPluginManager().registerEvents(new UberEvent(), this);
@@ -432,11 +436,23 @@ public class nes extends JavaPlugin {
                 false, false, false,
                 Collections.emptyList(), null));
 
+        UberItems.putItem("ancient_elevator", new ancient_elevator(Material.QUARTZ_STAIRS, "Ancient Elevator", UberRarity.SPECIAL,
+                false, false, false,
+                Collections.emptyList(), null));
+
+        UberItems.putItem("kloonboat", new kloonboat(Material.OAK_BOAT, "Kloonboat", UberRarity.SPECIAL,
+                false, false, false,
+                Collections.emptyList(), null));
+
         UberItems.putItem("game_breaker", new game_breaker(Material.TNT, "Game Breaker", UberRarity.SPECIAL,
                 false, false, false,
                 Collections.emptyList(), null));
 
         UberItems.putItem("quality_map", new quality_map(Material.MAP, "Quality Map", UberRarity.SPECIAL,
+                false, false, false,
+                Collections.emptyList(), null));
+
+        UberItems.putItem("dead_bush_of_love", new dead_bush_of_love(Material.DEAD_BUSH, "Dead Bush of Love", UberRarity.SPECIAL,
                 false, false, false,
                 Collections.emptyList(), null));
 
