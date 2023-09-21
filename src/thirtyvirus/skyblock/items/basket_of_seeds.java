@@ -37,6 +37,7 @@ public class basket_of_seeds extends UberItem {
     public boolean rightClickBlockAction(Player player, PlayerInteractEvent event, Block block, ItemStack item) {
 
         // TODO inventory / seed management
+        // TODO fix directional placement to prevent only placing one of crop, maybe with player.getFacing()
         // farmland crops (wheat, carrot, potato)
         if (block.getType() == Material.FARMLAND) {
             placeSeed(block, getCardinalDirection(player), block.getType(), Material.WHEAT);

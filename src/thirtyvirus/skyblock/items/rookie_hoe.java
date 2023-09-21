@@ -63,7 +63,7 @@ public class rookie_hoe extends UberItem {
         }
         if (toDrop != Material.AIR) block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(toDrop));
 
-        // repair axe each time it is used
+        // repair hoe each time it is used
         Utilities.repairItem(item);
         return true;
     }

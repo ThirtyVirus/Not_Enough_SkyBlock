@@ -2,6 +2,7 @@ package thirtyvirus.skyblock.items;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -12,6 +13,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import thirtyvirus.uber.UberItem;
 import thirtyvirus.uber.helpers.*;
 
@@ -29,10 +32,15 @@ public class weird_tuba extends UberItem {
 
     public boolean rightClickAirAction(Player player, ItemStack item) {
 
-        if (Utilities.enforceCooldown(player, "tuba", 20, item, true))
+        if (Utilities.enforceCooldown(player, "tuba", 20, item, true) || Utilities.enforceManaCost(player, 50))
             return false;
         else {
-            // give players buff
+            for (Player near : Bukkit.getOnlinePlayers()) {
+                if (near.getLocation().distance(player.getLocation()) <= 4) {
+                    near.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 20, 1));
+                    near.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 20, 1));
+                }
+            }
 
             player.playSound(player.getLocation(), Sound.ENTITY_WOLF_HOWL, 1, 2);
             return true;

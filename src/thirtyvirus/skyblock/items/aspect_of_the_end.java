@@ -34,21 +34,24 @@ public class aspect_of_the_end extends UberItem {
 
     // teleport ability
     public boolean rightClickAirAction(Player player, ItemStack item) {
-        Location start = player.getEyeLocation().clone();
-        Location end = start.clone().add(player.getEyeLocation().getDirection().multiply(8));
-        Utilities.safeTeleport(player, start, end);
-        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1f,1f);
 
-        if (Utilities.getIntFromItem(item, "has_teleported") == 0) {
-            // change player speed
-            player.setWalkSpeed(player.getWalkSpeed() + 0.05f);
-            Utilities.storeIntInItem(item, 1, "has_teleported");
+        if (!Utilities.enforceManaCost(player, 25)) {
+            Location start = player.getEyeLocation().clone();
+            Location end = start.clone().add(player.getEyeLocation().getDirection().multiply(8));
+            Utilities.safeTeleport(player, start, end);
+            player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1f,1f);
 
-            // remove player speed after 3 seconds
-            Utilities.scheduleTask(new Runnable() { public void run() {
-                player.setWalkSpeed(player.getWalkSpeed() - 0.05f);
-                Utilities.storeIntInItem(item, 0, "has_teleported");
-            } }, 60);
+            if (Utilities.getIntFromItem(item, "has_teleported") == 0) {
+                // change player speed
+                player.setWalkSpeed(player.getWalkSpeed() + 0.05f);
+                Utilities.storeIntInItem(item, 1, "has_teleported");
+
+                // remove player speed after 3 seconds
+                Utilities.scheduleTask(new Runnable() { public void run() {
+                    player.setWalkSpeed(player.getWalkSpeed() - 0.05f);
+                    Utilities.storeIntInItem(item, 0, "has_teleported");
+                } }, 60);
+            }
         }
 
         return true;

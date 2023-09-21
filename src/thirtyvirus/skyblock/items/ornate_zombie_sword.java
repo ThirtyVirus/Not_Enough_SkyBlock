@@ -34,6 +34,7 @@ public class ornate_zombie_sword extends UberItem {
     public boolean rightClickAirAction(Player player, ItemStack item) {
 
         if (utils.enforceCharges(player, "zsh", 5, 15, item, true)) return false;
+        if (Utilities.enforceManaCost(player, 25)) return false;
 
         // perform heal on player
         Utilities.safeHeal(player, 4);

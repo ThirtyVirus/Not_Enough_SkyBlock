@@ -236,7 +236,7 @@ public class nes extends JavaPlugin {
 
         UberItems.putItem("aspect_of_the_end", new aspect_of_the_end(Material.DIAMOND_SWORD, "Aspect Of The End", UberRarity.RARE,
                 false, false, false,
-                Collections.singletonList(new UberAbility("Instant Transmission", AbilityType.RIGHT_CLICK, "Teleport " + ChatColor.GREEN + "8 blocks" + ChatColor.GRAY + " ahead of you and gain " + ChatColor.GREEN + "+50 " + ChatColor.WHITE + "✦ Speed" + ChatColor.GRAY + " for " + ChatColor.GREEN + "3 seconds")),
+                Collections.singletonList(new UberAbility("Instant Transmission", AbilityType.RIGHT_CLICK, "Teleport " + ChatColor.GREEN + "8 blocks" + ChatColor.GRAY + " ahead of you and gain " + ChatColor.GREEN + "+50 " + ChatColor.WHITE + "✦ Speed" + ChatColor.GRAY + " for " + ChatColor.GREEN + "3 seconds", 0, 25)),
                 new UberCraftingRecipe(Arrays.asList(
                         new ItemStack(Material.AIR),
                         UberItems.getMaterial("enchanted_eye_of_ender").makeItem(16),
@@ -253,7 +253,7 @@ public class nes extends JavaPlugin {
                 Collections.singletonList(new UberAbility("Instant Heal", AbilityType.RIGHT_CLICK, "Heal for " +
                         ChatColor.RED + "1.5 hearts" + ChatColor.GRAY + " and heal players within " +
                         ChatColor.GREEN + "7" + ChatColor.GRAY + " blocks for " + ChatColor.RED + "0.5 hearts" + ChatColor.GRAY +
-                        ". " + ChatColor.DARK_GRAY + "Charges: " + ChatColor.YELLOW + "4" + ChatColor.DARK_GRAY + " / " + ChatColor.GREEN + "15s")),
+                        ". " + ChatColor.DARK_GRAY + "Charges: " + ChatColor.YELLOW + "4" + ChatColor.DARK_GRAY + " / " + ChatColor.GREEN + "15s", 0, 35)),
                 new UberCraftingRecipe(Arrays.asList(
                         new ItemStack(Material.AIR),
                         UberItems.getMaterial("zombie_heart").makeItem(1),
@@ -284,7 +284,7 @@ public class nes extends JavaPlugin {
                 Collections.singletonList(new UberAbility("Instant Heal", AbilityType.RIGHT_CLICK, "Heal for " +
                         ChatColor.RED + "2 hearts" + ChatColor.GRAY + " and heal players within " +
                         ChatColor.GREEN + "7" + ChatColor.GRAY + " blocks for " + ChatColor.RED + "1 heart" + ChatColor.GRAY +
-                        ". " + ChatColor.DARK_GRAY + "Charges: " + ChatColor.YELLOW + "5" + ChatColor.DARK_GRAY + " / " + ChatColor.GREEN + "15s")),
+                        ". " + ChatColor.DARK_GRAY + "Charges: " + ChatColor.YELLOW + "5" + ChatColor.DARK_GRAY + " / " + ChatColor.GREEN + "15s", 0, 25)),
                 new UberCraftingRecipe(Arrays.asList(
                         new ItemStack(Material.AIR),
                         UberItems.getMaterial("enchanted_gold_block").makeItem(1),
@@ -301,7 +301,7 @@ public class nes extends JavaPlugin {
                 Collections.singletonList(new UberAbility("Instant Heal", AbilityType.RIGHT_CLICK, "Heal for " +
                         ChatColor.RED + "2.5 hearts" + ChatColor.GRAY + " and heal players within " +
                         ChatColor.GREEN + "8" + ChatColor.GRAY + " blocks for " + ChatColor.RED + "1.5 hearts" + ChatColor.GRAY +
-                        ". " + ChatColor.DARK_GRAY + "Charges: " + ChatColor.YELLOW + "7" + ChatColor.DARK_GRAY + " / " + ChatColor.GREEN + "15s")),
+                        ". " + ChatColor.DARK_GRAY + "Charges: " + ChatColor.YELLOW + "7" + ChatColor.DARK_GRAY + " / " + ChatColor.GREEN + "15s", 0, 20)),
                 new UberCraftingRecipe(Arrays.asList(
                         new ItemStack(Material.AIR),
                         UberItems.getMaterial("healing_tissue").makeItem(12),
@@ -315,7 +315,7 @@ public class nes extends JavaPlugin {
 
         UberItems.putItem("ember_rod", new ember_rod(Material.BLAZE_ROD, "Ember Rod", UberRarity.EPIC,
                 false, false, false,
-                Collections.singletonList(new UberAbility("Fire Blast!", AbilityType.RIGHT_CLICK, "Shoot 3 FireBalls in rapid succession in front of you!", 30)),
+                Collections.singletonList(new UberAbility("Fire Blast!", AbilityType.RIGHT_CLICK, "Shoot 3 FireBalls in rapid succession in front of you!", 30, 50)),
                 null, "SWORD"));
 
         UberItems.putItem("jungle_axe", new jungle_axe(Material.WOODEN_AXE, "Jungle Axe", UberRarity.UNCOMMON,
@@ -331,10 +331,10 @@ public class nes extends JavaPlugin {
                         new ItemStack(Material.STICK),
                         new ItemStack(Material.AIR)), false, 1), "AXE"));
 
-        UberItems.putItem("weird_tuba", new weird_tuba(Material.HOPPER, "Weird Tuba", UberRarity.UNFINISHED,
+        UberItems.putItem("weird_tuba", new weird_tuba(Material.HOPPER, "Weird Tuba", UberRarity.RARE,
                 false, false, false,
-                Collections.singletonList(new UberAbility("Howl", AbilityType.RIGHT_CLICK, "You and 4 nearby players gain: /newline " + ChatColor.RED + "+30 Strength /newline "
-                        + ChatColor.WHITE + "+30 Speed /newline " + ChatColor.GRAY + "for " + ChatColor.GREEN + "20" + ChatColor.GRAY + " seconds. /newline " + ChatColor.DARK_GRAY + "Effect doesn't stack.", 20)),
+                Collections.singletonList(new UberAbility("Howl", AbilityType.RIGHT_CLICK, "You and 4 nearby players gain: /newline " + ChatColor.RED + "Strength II /newline "
+                        + ChatColor.WHITE + "Speed II /newline " + ChatColor.GRAY + "for " + ChatColor.GREEN + "20" + ChatColor.GRAY + " seconds. /newline " + ChatColor.DARK_GRAY + "Effect doesn't stack.", 20, 50)),
                 new UberCraftingRecipe(Arrays.asList(
                         UberItems.getMaterial("enchanted_iron").makeItem(20),
                         new ItemStack(Material.AIR),
@@ -429,7 +429,7 @@ public class nes extends JavaPlugin {
 
         UberItems.putItem("aspect_of_the_dragons", new aspect_of_the_dragons(Material.DIAMOND_SWORD, "Aspect of the Dragons", UberRarity.LEGENDARY,
                 false, false, false,
-                Collections.singletonList(new UberAbility("Dragon Rage", AbilityType.RIGHT_CLICK, "All Monsters and Players /newline in front of you take " + ChatColor.GREEN + "4" + ChatColor.GRAY + " damage. Hit monsters take large knockback.")),
+                Collections.singletonList(new UberAbility("Dragon Rage", AbilityType.RIGHT_CLICK, "All Monsters and Players /newline in front of you take " + ChatColor.GREEN + "4" + ChatColor.GRAY + " damage. Hit monsters take large knockback.", 0, 20)),
                 null, "SWORD"));
 
         UberItems.putItem("creative_mind", new creative_mind(Material.PAINTING, "Creative Mind", UberRarity.SPECIAL,

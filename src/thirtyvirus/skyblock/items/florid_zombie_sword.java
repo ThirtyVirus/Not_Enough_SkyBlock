@@ -34,6 +34,7 @@ public class florid_zombie_sword extends UberItem {
     public boolean rightClickAirAction(Player player, ItemStack item) {
 
         if (utils.enforceCharges(player, "zsh", 7, 15, item, true)) return false;
+        if (Utilities.enforceManaCost(player, 20)) return false;
 
         // perform heal on player
         Utilities.safeHeal(player, 5);

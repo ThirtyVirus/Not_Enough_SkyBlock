@@ -34,6 +34,7 @@ public class aspect_of_the_dragons extends UberItem {
 
     // teleport ability
     public boolean rightClickAirAction(Player player, ItemStack item) {
+        if (Utilities.enforceManaCost(player, 20)) return false;
         knockbackAttack(player, 4,10);
         player.getWorld().playSound(player.getLocation().add(0,1,0), Sound.ENTITY_ENDER_DRAGON_GROWL, 1,1);
 
